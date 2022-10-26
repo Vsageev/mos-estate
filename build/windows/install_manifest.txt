@@ -1,0 +1,9 @@
+D:/projects/mos_estate/build/windows/runner/Debug/data/icudtl.dat
+D:/projects/mos_estate/build/windows/runner/Debug/flutter_windows.dll
+D:/projects/mos_estate/build/windows/runner/Debug/data/flutter_assets/AssetManifest.json
+D:/projects/mos_estate/build/windows/runner/Debug/data/flutter_assets/FontManifest.json
+D:/projects/mos_estate/build/windows/runner/Debug/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+D:/projects/mos_estate/build/windows/runner/Debug/data/flutter_assets/kernel_blob.bin
+D:/projects/mos_estate/build/windows/runner/Debug/data/flutter_assets/NOTICES
+D:/projects/mos_estate/build/windows/runner/Debug/data/flutter_assets/NOTICES.Z
+D:/projects/mos_estate/build/windows/runner/Debug/data/flutter_assets/shaders/ink_sparkle.frag
