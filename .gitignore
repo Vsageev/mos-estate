@@ -11,9 +11,9 @@
 migrate_working_dir/
 
 # might have private keys
-web/
-android/
-ios/
+/web/
+/android/
+/ios/
 
 # IntelliJ related
 *.iml
