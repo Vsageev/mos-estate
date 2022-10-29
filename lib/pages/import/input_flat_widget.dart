@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:mos_estate/pages/standart_calculation/standart_calculation_page.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/shared/models/input_flat.dart';
 import 'package:mos_estate/shared/widget/button.dart';
@@ -24,7 +25,14 @@ class InputFlatWidget extends StatelessWidget {
           Text(flat.position),
           Button(
             child: const Text('Рассчитать'),
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (d) => const StandartCalculationPage(),
+                ),
+              );
+            },
           ),
         ],
       ),
