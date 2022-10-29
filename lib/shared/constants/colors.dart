@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomColors {
-  static Color get background => Colors.white;
-  static Color get backgroundAccent => const Color.fromARGB(255, 230, 230, 230);
-  static Color get textAccent => const Color.fromARGB(255, 159, 159, 159);
   static Color get text => Colors.black;
-  static Color get textReverse => Colors.white;
-  static Color get bright => Colors.pink;
-  // const  Color get brightAccent = Color.fromARGB(255, 43, 82, 120);
-  static Color get warn => const Color.fromARGB(255, 255, 46, 48);
-  static Color get warnAccent => const Color.fromARGB(25, 255, 46, 48);
-  static Color get buttonPressed => const Color.fromARGB(255, 23, 62, 100);
+  static Color get background => Colors.white;
+  static Color get backgroundAccent => const Color.fromARGB(255, 246, 247, 247);
+  static Color get brightAccent => const Color.fromARGB(255, 61, 138, 204);
+  static Color get darkAccent => const Color.fromARGB(255, 22, 60, 113);
+  static Color get div => const Color.fromARGB(255, 207, 207, 207);
+  static Color get buttonLight => const Color.fromARGB(255, 126, 181, 234);
+
+  static Color get gradient1 => const Color.fromARGB(255, 71, 157, 235);
+  static Color get gradient2 => const Color.fromARGB(255, 49, 115, 193);
+
   static Color get navbar => const Color.fromARGB(255, 200, 200, 200);
   static Brightness get systemBrightness => Brightness.dark;
 }

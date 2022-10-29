@@ -6,7 +6,6 @@ class ImportWaiting extends ImportState {}
 
 class ImportLoaded extends ImportState {
   List<InputFlat> flats;
-  ImportLoaded({
-    required this.flats,
-  });
+  int? selectedId;
+  ImportLoaded({required this.flats, this.selectedId});
 }

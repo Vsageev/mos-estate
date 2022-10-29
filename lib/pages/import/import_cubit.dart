@@ -21,4 +21,10 @@ class ImportCubit extends Cubit<ImportState> {
       emit(ImportLoaded(flats: flats ?? []));
     }
   }
+
+  selectFlat(int id) {
+    if (state is ImportLoaded) {
+      emit(ImportLoaded(flats: (state as ImportLoaded).flats, selectedId: id));
+    }
+  }
 }

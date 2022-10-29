@@ -2,7 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mos_estate/pages/import/import_cubit.dart';
 import 'package:mos_estate/pages/import/import_states.dart';
-import 'package:mos_estate/pages/import/input_flat_widget.dart';
+import 'package:mos_estate/pages/import/import_widget.dart';
+import 'package:mos_estate/pages/import/import_flat_widget.dart';
+import 'package:mos_estate/shared/constants/colors.dart';
+import 'package:mos_estate/shared/widget/navigated_page.dart';
 
 class ImportPage extends StatelessWidget {
   const ImportPage({super.key});
@@ -12,24 +15,97 @@ class ImportPage extends StatelessWidget {
     return BlocBuilder<ImportCubit, ImportState>(
       builder: (context, state) {
         if (state is ImportLoaded) {
-          return Scaffold(
-            body: GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisExtent: 80,
-              ),
-              itemCount: state.flats.length,
-              itemBuilder: (context, index) => InputFlatWidget(flat: state.flats[index]),
+          return NavigatedPage(
+            body: Stack(
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft,
+                      colors: [CustomColors.gradient2, CustomColors.gradient1],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        const SizedBox(
+                          height: 250,
+                          child: ImportWidget(),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: CustomColors.background,
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(24),
+                              topRight: Radius.circular(24),
+                            ),
+                          ),
+                          child: Row(
+                            children: [
+                              ListView.separated(
+                                primary: false,
+                                shrinkWrap: true,
+                                itemCount: state.flats.length,
+                                separatorBuilder: (context, index) => Container(height: 1, color: CustomColors.div),
+                                itemBuilder: (context, index) => ImportFlatWidget(
+                                  flat: state.flats[index],
+                                  selected: state.selectedId == index,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           );
         }
 
-        return Scaffold(
-          body: Center(
-            child: ElevatedButton(
-              onPressed: BlocProvider.of<ImportCubit>(context).pickFile,
-              child: const Text('Import'),
-            ),
+        return NavigatedPage(
+          body: Stack(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    colors: [CustomColors.gradient2, CustomColors.gradient1],
+                  ),
+                ),
+              ),
+              Column(
+                children: [
+                  const SizedBox(
+                    height: 250,
+                    child: ImportWidget(),
+                  ),
+                  Expanded(
+                    child: Container(
+                      decoration: BoxDecoration(
+                        color: CustomColors.background,
+                        borderRadius: const BorderRadius.only(
+                          topLeft: Radius.circular(24),
+                          topRight: Radius.circular(24),
+                        ),
+                      ),
+                      child: Center(
+                        child: Icon(
+                          Icons.timelapse,
+                          color: CustomColors.div,
+                          size: 40,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         );
       },

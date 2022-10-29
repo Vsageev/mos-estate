@@ -28,7 +28,7 @@ class Button extends StatefulWidget {
 }
 
 class _ButtonState extends State<Button> {
-  Color get _getColor => widget.color ?? CustomColors.bright;
+  Color get _getColor => widget.color ?? CustomColors.brightAccent;
   bool isTaped = false;
 
   @override
