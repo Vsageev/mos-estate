@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 
-class AuthTextForm extends StatelessWidget {
-  const AuthTextForm({Key? key, required this.hint})
-      : super(key: key);
+class CustomTextForm extends StatelessWidget {
+  const CustomTextForm({Key? key, required this.hint, required this.controller}) : super(key: key);
 
   final String hint;
+  final TextEditingController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -19,13 +19,14 @@ class AuthTextForm extends StatelessWidget {
           Expanded(
             child: TextField(
               maxLines: 1,
+              controller: controller,
               style: TextStyle(fontSize: 16, color: CustomColors.text, fontWeight: FontWeight.w500),
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: const EdgeInsets.only(left: 22.4, bottom: 18.4, top: 18.4),
                 hintText: hint,
-                hintStyle: const TextStyle(
-                  color: Color.fromRGBO(130, 130, 130, 1),
+                hintStyle: TextStyle(
+                  color: CustomColors.hint,
                 ),
                 border: InputBorder.none,
               ),
