@@ -17,74 +17,44 @@ class ImportWidget extends StatelessWidget {
           Expanded(
             child: Center(
               child: Text(
-                'Импорт данных таблицы',
+                'Импорт пула',
                 style: TextStyle(fontSize: 45, fontWeight: FontWeight.w600, color: CustomColors.background),
               ),
             ),
           ),
           Container(width: 1.5, color: CustomColors.background, margin: const EdgeInsets.symmetric(vertical: 16)),
           Expanded(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        child: Text(
-                          'Выбор файлов для импорта данных',
-                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: CustomColors.background),
+            child: Center(
+              child: DottedBorder(
+                dashPattern: const [10, 10],
+                borderType: BorderType.RRect,
+                strokeWidth: 2,
+                radius: const Radius.circular(4),
+                color: CustomColors.background,
+                padding: const EdgeInsets.all(0),
+                strokeCap: StrokeCap.round,
+                child: Button(
+                  width: 200,
+                  onTap: BlocProvider.of<ImportCubit>(context).pickFile,
+                  color: Colors.transparent,
+                  child: SizedBox(
+                    height: 30,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Icon(
+                          Icons.upload,
+                          color: CustomColors.background,
                         ),
-                      ),
-                      Container(width: 5),
-                      DottedBorder(
-                        dashPattern: const [10, 10],
-                        borderType: BorderType.RRect,
-                        strokeWidth: 2,
-                        radius: const Radius.circular(4),
-                        color: CustomColors.background,
-                        padding: const EdgeInsets.all(0),
-                        strokeCap: StrokeCap.round,
-                        child: Button(
-                          width: 200,
-                          onTap: BlocProvider.of<ImportCubit>(context).pickFile,
-                          color: Colors.transparent,
-                          child: Center(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Icon(
-                                  Icons.upload,
-                                  color: CustomColors.background,
-                                ),
-                                Container(width: 4),
-                                Text(
-                                  'Выбор файла',
-                                  style: TextStyle(
-                                      fontSize: 16, fontWeight: FontWeight.w600, color: CustomColors.background),
-                                ),
-                              ],
-                            ),
-                          ),
+                        Container(width: 4),
+                        Text(
+                          'Выбор файла',
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: CustomColors.background),
                         ),
-                      ),
-                    ],
-                  ),
-                  Container(height: 41),
-                  Button(
-                    onTap: BlocProvider.of<ImportCubit>(context).pickFile,
-                    color: CustomColors.buttonLight,
-                    child: Center(
-                      child: Text(
-                        'Рассчитать',
-                        style: TextStyle(fontSize: 19, fontWeight: FontWeight.w700, color: CustomColors.background),
-                      ),
+                      ],
                     ),
                   ),
-                ],
+                ),
               ),
             ),
           ),

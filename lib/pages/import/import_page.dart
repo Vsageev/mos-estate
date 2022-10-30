@@ -39,12 +39,17 @@ class ImportPage extends StatelessWidget {
                           child: ImportWidget(),
                         ),
                       ),
-                      const SliverPinnedHeader(child: ImprotHeader()),
+                      SliverPinnedHeader(
+                        child: ImprotHeader(
+                          flatSelected: state.selectedId != null,
+                        ),
+                      ),
                       SliverList(
                         delegate: SliverChildBuilderDelegate(
                           (context, index) => ImportFlatWidget(
                             flat: state.flats[index],
                             selected: state.selectedId == index,
+                            onSelected: () => BlocProvider.of<ImportCubit>(context).selectFlat(index),
                           ),
                           childCount: state.flats.length,
                         ),

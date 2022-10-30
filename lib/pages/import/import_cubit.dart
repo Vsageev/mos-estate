@@ -24,12 +24,6 @@ class ImportCubit extends Cubit<ImportState> {
     }
   }
 
-  selectFlat(int id) {
-    if (state is ImportLoaded) {
-      emit(ImportLoaded(flats: (state as ImportLoaded).flats, selectedId: id));
-    }
-  }
-
   filter(String location) {
     if (state is ImportLoaded) {
       emit(ImportLoaded(
@@ -37,4 +31,12 @@ class ImportCubit extends Cubit<ImportState> {
           selectedId: (state as ImportLoaded).selectedId));
     }
   }
+
+  selectFlat(int id) {
+    if (state is ImportLoaded) {
+      emit(ImportLoaded(flats: (state as ImportLoaded).flats, selectedId: id));
+    }
+  }
+
+  calculate() {}
 }

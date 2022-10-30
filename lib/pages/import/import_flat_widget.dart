@@ -4,9 +4,10 @@ import 'package:mos_estate/shared/models/input_flat.dart';
 import 'package:mos_estate/shared/widget/checkbox.dart';
 
 class ImportFlatWidget extends StatelessWidget {
-  const ImportFlatWidget({super.key, required this.flat, required this.selected});
+  const ImportFlatWidget({super.key, required this.flat, required this.selected, required this.onSelected});
 
   final bool selected;
+  final Function onSelected;
   final InputFlat flat;
 
   @override
@@ -28,8 +29,8 @@ class ImportFlatWidget extends StatelessWidget {
               children: [
                 Container(width: 20),
                 CustomCheckbox(
-                  selected: true,
-                  onSelected: () {},
+                  selected: selected,
+                  onSelected: onSelected,
                 ),
                 Container(width: 20),
                 Text(
