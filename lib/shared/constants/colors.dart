@@ -7,8 +7,11 @@ class CustomColors {
   static Color get backgroundAccent => const Color.fromARGB(255, 246, 247, 247);
   static Color get brightAccent => const Color.fromARGB(255, 61, 138, 204);
   static Color get darkAccent => const Color.fromARGB(255, 22, 60, 113);
-  static Color get div => const Color.fromARGB(255, 207, 207, 207);
   static Color get buttonLight => const Color.fromARGB(255, 126, 181, 234);
+
+  static Color get div => const Color.fromARGB(255, 207, 207, 207);
+  static Color get searchbar => const Color.fromARGB(255, 237, 237, 237);
+  static Color get hint => const Color.fromARGB(255, 90, 90, 90);
 
   static Color get gradient1 => const Color.fromARGB(255, 71, 157, 235);
   static Color get gradient2 => const Color.fromARGB(255, 49, 115, 193);

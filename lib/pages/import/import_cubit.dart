@@ -7,6 +7,8 @@ import 'package:mos_estate/pages/import/import_states.dart';
 class ImportCubit extends Cubit<ImportState> {
   ImportCubit() : super(ImportWaiting());
 
+  List<InputFlat>? lastFlats;
+
   pickFile() async {
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
@@ -16,15 +18,23 @@ class ImportCubit extends Cubit<ImportState> {
 
       final rows = excel.tables[excel.tables.keys.first]?.rows.sublist(2);
 
-      final flats = rows?.map((e) => InputFlat.fromRow(e)).toList();
+      lastFlats = rows?.map((e) => InputFlat.fromRow(e)).toList();
 
-      emit(ImportLoaded(flats: flats ?? []));
+      emit(ImportLoaded(flats: lastFlats ?? []));
     }
   }
 
   selectFlat(int id) {
     if (state is ImportLoaded) {
       emit(ImportLoaded(flats: (state as ImportLoaded).flats, selectedId: id));
+    }
+  }
+
+  filter(String location) {
+    if (state is ImportLoaded) {
+      emit(ImportLoaded(
+          flats: lastFlats?.where((element) => element.position.contains(location)).toList() ?? [],
+          selectedId: (state as ImportLoaded).selectedId));
     }
   }
 }

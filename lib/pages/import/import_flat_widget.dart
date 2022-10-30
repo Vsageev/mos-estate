@@ -1,6 +1,3 @@
-import 'dart:ui';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/shared/models/input_flat.dart';
@@ -14,8 +11,14 @@ class ImportFlatWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       height: 77,
+      decoration: BoxDecoration(
+        color: CustomColors.background,
+        border: Border(
+          top: BorderSide(color: CustomColors.div, width: 1),
+        ),
+      ),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
