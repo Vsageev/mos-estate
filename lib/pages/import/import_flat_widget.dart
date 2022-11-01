@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/shared/models/input_flat.dart';
-import 'package:mos_estate/shared/widget/checkbox.dart';
+import 'package:mos_estate/shared/widget/custom_checkbox.dart';
 
 class ImportFlatWidget extends StatelessWidget {
   const ImportFlatWidget({super.key, required this.flat, required this.selected, required this.onSelected});
