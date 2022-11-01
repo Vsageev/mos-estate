@@ -9,6 +9,7 @@ class Button extends StatefulWidget {
     this.color,
     this.tapColor,
     this.width,
+    this.border,
     this.borderRadius,
     this.padding,
     this.margin,
@@ -18,6 +19,7 @@ class Button extends StatefulWidget {
   final Color? color;
   final Color? tapColor;
   final double? width;
+  final BoxBorder? border;
   final double? borderRadius;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -33,35 +35,39 @@ class _ButtonState extends State<Button> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      child: Container(
-        padding: widget.padding ?? const EdgeInsets.all(15),
-        margin: widget.margin,
-        width: widget.width,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(widget.borderRadius ?? 10),
-          color: !isTaped
-              ? _getColor
-              : HSLColor.fromColor(_getColor).withLightness(HSLColor.fromColor(_getColor).lightness * 0.8).toColor(),
+    return MouseRegion(
+      cursor: SystemMouseCursors.click,
+      child: GestureDetector(
+        child: Container(
+          padding: widget.padding ?? const EdgeInsets.all(15),
+          margin: widget.margin,
+          width: widget.width,
+          decoration: BoxDecoration(
+            border: widget.border,
+            borderRadius: BorderRadius.circular(widget.borderRadius ?? 10),
+            color: !isTaped
+                ? _getColor
+                : HSLColor.fromColor(_getColor).withLightness(HSLColor.fromColor(_getColor).lightness * 0.8).toColor(),
+          ),
+          child: widget.child,
         ),
-        child: widget.child,
+        onTapDown: (details) {
+          setState(() {
+            isTaped = true;
+          });
+        },
+        onTapCancel: () {
+          setState(() {
+            isTaped = false;
+          });
+        },
+        onTap: () {
+          widget.onTap();
+          setState(() {
+            isTaped = false;
+          });
+        },
       ),
-      onTapDown: (details) {
-        setState(() {
-          isTaped = true;
-        });
-      },
-      onTapCancel: () {
-        setState(() {
-          isTaped = false;
-        });
-      },
-      onTap: () {
-        widget.onTap();
-        setState(() {
-          isTaped = false;
-        });
-      },
     );
   }
 }

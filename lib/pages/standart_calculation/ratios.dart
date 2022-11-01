@@ -1,3 +1,5 @@
+import 'package:mos_estate/shared/constants/parameters.dart';
+
 class Ratios {
   final List<String> names;
   final List<List<double>> values;
@@ -6,9 +8,9 @@ class Ratios {
     required this.values,
   });
 
-  factory Ratios.creteStandart({required String name}) {
-    switch (name) {
-      case "floor":
+  factory Ratios.creteStandart({required Parameter parameter}) {
+    switch (parameter) {
+      case Parameter.floor:
         return Ratios(
           names: ['Первый этаж', 'Средние этажи', 'Последний этаж'],
           values: [
@@ -17,7 +19,7 @@ class Ratios {
             [0.032, -0.04, 0],
           ],
         );
-      case "flatArea":
+      case Parameter.flatArea:
         return Ratios(
           names: ['<30', '30-50', '50-65', '65-90', '90-120', '>120'],
           values: [
@@ -29,7 +31,7 @@ class Ratios {
             [-0.24, -0.19, -0.13, -0.08, -0.03, 0],
           ],
         );
-      case "kitchenArea":
+      case Parameter.kitchenArea:
         return Ratios(
           names: ['до 7', '7-10', '10-15'],
           values: [
@@ -38,7 +40,7 @@ class Ratios {
             [0.09, 0.058, 0],
           ],
         );
-      case "hasBalcony":
+      case Parameter.hasBalcony:
         return Ratios(
           names: ['Нет', 'Есть'],
           values: [
@@ -46,7 +48,7 @@ class Ratios {
             [0.053, 0],
           ],
         );
-      case "distanceFromMetro":
+      case Parameter.distanceFromMetro:
         return Ratios(
           names: ['до 5', '5-10', '10-15', '15-30', '30-60', '60-90'],
           values: [
@@ -58,9 +60,9 @@ class Ratios {
             [-0.22, -0.17, -0.13, -0.09, -0.04, 0],
           ],
         );
-      case "condition":
+      case Parameter.condition:
         return Ratios(
-          names: ['Без отделки', 'Эконом', 'Улучшенный'],
+          names: ['Без отделки', 'Муниципальный ремонт', 'Современная отделка'],
           values: [
             [0, -0.07, -0.031],
             [0.075, 0, 0.042],
