@@ -1,7 +1,7 @@
 import 'package:excel/excel.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mos_estate/shared/models/input_flat.dart';
+import 'package:mos_estate/pages/import/input_flat.dart';
 import 'package:mos_estate/pages/import/import_states.dart';
 
 class ImportCubit extends Cubit<ImportState> {

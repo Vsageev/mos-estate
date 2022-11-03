@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue_list.dart';
 import 'package:mos_estate/pages/standart_calculation/marker_drawers.dart';
+import 'package:mos_estate/pages/standart_calculation/standart.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_cubit.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_states.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_panel.dart';
@@ -25,6 +26,7 @@ class StandartCalculationPage extends StatefulWidget {
 class _StandartCalculationPageState extends State<StandartCalculationPage> {
   Set<Marker> _markers = {};
   late GoogleMapController mapController;
+  bool mapActive = true;
 
   _initMarkers(List<Analogue> analogues) async {
     Set<Marker> tempMarkers = {};
@@ -32,7 +34,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
     for (var e in analogues) {
       tempMarkers.add(Marker(
         icon: await (() async {
-          Uint8List markerIcon = await drawAnalogue(1, 30, 30);
+          Uint8List markerIcon = await drawAnalogue(1, 30, 30, e.selected);
           return BitmapDescriptor.fromBytes(markerIcon);
         }()),
         position: LatLng(e.coordinates.lat, e.coordinates.lng),
@@ -62,11 +64,18 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
     mapController = controller;
   }
 
-  int _getPrice(List<Analogue> analogues) {
+  _setMapGestureDetection(bool enabled) {
+    setState(() {
+      mapActive = enabled;
+    });
+  }
+
+  int _getPrice(List<Analogue> analogues, Standart standart) {
     int i = 0;
     double sum = 0;
     double tempPrice;
 
+    final bargainRatio = BlocProvider.of<StandartCalculationCubit>(context).bargainRatio;
     final ratios = BlocProvider.of<StandartCalculationCubit>(context).ratios;
 
     for (var e in analogues) {
@@ -76,12 +85,13 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
           tempPrice *=
               (1 + (e.ratios[p] ?? ratios[p]!.values[e.ratiosCoordinates[p]!.row][e.ratiosCoordinates[p]!.column]));
         }
+        tempPrice *= 1 + (e.bargainRatio.value ?? bargainRatio.value!);
         ++i;
-        sum += tempPrice;
+        sum += tempPrice / e.flatArea;
       }
     }
 
-    return sum ~/ i;
+    return i != 0 ? (sum * standart.flatArea) ~/ i : 0;
   }
 
   @override
@@ -106,6 +116,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                               _onMapCreated(c);
                               _initMarkers(state.analogues);
                             },
+                            zoomGesturesEnabled: mapActive,
                             markers: _markers,
                             initialCameraPosition: const CameraPosition(
                               target: LatLng(55.7607139, 37.6006965),
@@ -116,7 +127,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                       ),
                       Container(height: 24),
                       StandartPanel(
-                        price: _getPrice(state.analogues),
+                        price: _getPrice(state.analogues, state.standart),
                       )
                     ],
                   ),
@@ -151,6 +162,11 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                         onTap: () {},
                       ),
                       AnalogueList(
+                        setMapEnabled: _setMapGestureDetection,
+                        updateUI: () {
+                          setState(() {});
+                          _initMarkers(state.analogues);
+                        },
                         analogues: state.analogues,
                         navigateToMarker: (d) {
                           mapController.animateCamera(CameraUpdate.newLatLng(d));

@@ -15,6 +15,7 @@ dependencies:
 
   dotted_border: ^2.0.0+3
   sliver_tools: ^0.2.8
+  overlay_support: ^2.0.1
 
   file_picker: ^5.2.2
   excel: ^2.0.0-null-safety-3

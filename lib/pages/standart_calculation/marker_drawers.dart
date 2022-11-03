@@ -4,10 +4,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 
-Future<Uint8List> drawAnalogue(int customNum, int width, int height) async {
+Future<Uint8List> drawAnalogue(int customNum, int width, int height, bool selected) async {
   final PictureRecorder pictureRecorder = PictureRecorder();
   final Canvas canvas = Canvas(pictureRecorder);
-  final Paint paint = Paint()..color = CustomColors.brightAccent;
+  final Paint paint = Paint()..color = selected ? CustomColors.brightAccent : Colors.grey[200]!;
   final Radius radius = Radius.circular(width / 2);
 
   canvas.drawRRect(
@@ -23,7 +23,7 @@ Future<Uint8List> drawAnalogue(int customNum, int width, int height) async {
   TextPainter painter = TextPainter(textDirection: TextDirection.ltr);
   painter.text = TextSpan(
     text: customNum.toString(), // your custom number here
-    style: const TextStyle(fontSize: 20.0, color: Colors.white),
+    style: TextStyle(fontSize: 20.0, color: selected ? Colors.white : Colors.black),
   );
 
   painter.layout();

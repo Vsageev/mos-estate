@@ -10,6 +10,25 @@ enum Parameter {
 
   const Parameter(this.value);
 
+  static Parameter fromValue(String value) {
+    switch (value) {
+      case "floor":
+        return Parameter.floor;
+      case "flatArea":
+        return Parameter.flatArea;
+      case "kitchenArea":
+        return Parameter.kitchenArea;
+      case "hasBalcony":
+        return Parameter.hasBalcony;
+      case "distanceFromMetro":
+        return Parameter.distanceFromMetro;
+      case "condition":
+        return Parameter.condition;
+      default:
+        return Parameter.floor;
+    }
+  }
+
   getPresentational() {
     switch (this) {
       case Parameter.floor:

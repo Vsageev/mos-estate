@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:mos_estate/shared/constants/parameters.dart';
 
 class Analogue {
+  BargainRatio bargainRatio = BargainRatio();
   Map<Parameter, double?> ratios = {
     Parameter.floor: null,
     Parameter.flatArea: null,
@@ -26,7 +27,7 @@ class Analogue {
   int flatFloor;
   int flatArea;
   int kitchenArea;
-  bool hasBalcony;
+  String hasBalcony;
   double distanceFromMetro;
   String condition;
 
@@ -49,7 +50,7 @@ class Analogue {
 
   Map<String, dynamic> toMap() {
     return {
-      'ratiosCoordinates': ratiosCoordinates,
+      'ratiosCoordinates': ratiosCoordinates.toMap(),
       'price': price,
       'coordinates': coordinates.toMap(),
       'position': position,
@@ -68,7 +69,7 @@ class Analogue {
 
   factory Analogue.fromMap(Map<String, dynamic> map) {
     return Analogue(
-      ratiosCoordinates: Map<Parameter, RatioCoordinates>.from(map['ratiosCoordinates']),
+      ratiosCoordinates: ratioCoordsfromMap(map['ratiosCoordinates']),
       price: map['price']?.toInt() ?? 0,
       coordinates: Coordinates.fromMap(map['coordinates']),
       position: map['position'] ?? '',
@@ -144,4 +145,21 @@ class RatioCoordinates {
   String toJson() => json.encode(toMap());
 
   factory RatioCoordinates.fromJson(String source) => RatioCoordinates.fromMap(json.decode(source));
+}
+
+extension CoordinatesMapping on Map<Parameter, RatioCoordinates> {
+  Map<String, dynamic> toMap() {
+    return map((key, value) => MapEntry(key.value, value.toMap()));
+  }
+}
+
+Map<Parameter, RatioCoordinates> ratioCoordsfromMap(Map<String, dynamic> json) {
+  return json.map((key, value) => MapEntry(Parameter.fromValue(key), RatioCoordinates.fromMap(value)));
+}
+
+class BargainRatio {
+  double? value;
+  BargainRatio({
+    this.value,
+  });
 }

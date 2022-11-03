@@ -4,10 +4,18 @@ import 'package:mos_estate/pages/standart_calculation/analogue.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue_list_analogue.dart';
 
 class AnalogueList extends StatelessWidget {
-  const AnalogueList({super.key, required this.analogues, required this.navigateToMarker});
+  const AnalogueList({
+    super.key,
+    required this.analogues,
+    required this.navigateToMarker,
+    required this.updateUI,
+    required this.setMapEnabled,
+  });
 
   final List<Analogue> analogues;
   final Function(LatLng) navigateToMarker;
+  final Function updateUI;
+  final Function setMapEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -37,9 +45,11 @@ class AnalogueList extends StatelessWidget {
                 itemCount: analogues.length,
                 itemBuilder: (context, i) {
                   return AnalogueListAnalogue(
+                    setMapEnabled: setMapEnabled,
                     id: i + 1,
                     analogue: analogues[i],
                     navigateToMarker: navigateToMarker,
+                    updateUI: updateUI,
                   );
                 },
               ),

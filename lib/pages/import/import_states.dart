@@ -1,4 +1,4 @@
-import 'package:mos_estate/shared/models/input_flat.dart';
+import 'package:mos_estate/pages/import/input_flat.dart';
 
 abstract class ImportState {}
 

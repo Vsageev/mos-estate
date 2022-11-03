@@ -1,3 +1,7 @@
 String priceToString(int price) {
-  return price.toString().replaceAllMapped(RegExp(r".{3}"), (match) => "${match.group(0)} ") + "₽";
+  String temp = price.toString();
+  for (var i = temp.length - 2; i > 0; i -= 3) {
+    temp = temp.replaceRange(i - 1, null, " ${temp.substring(i - 1)}");
+  }
+  return "$temp ₽";
 }
