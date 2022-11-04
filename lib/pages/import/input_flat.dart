@@ -1,32 +1,33 @@
 import 'dart:convert';
 
 import 'package:excel/excel.dart';
+import 'package:mos_estate/shared/models/flat.dart';
 
-class InputFlat {
-  String position;
-  int roomsCount;
-  String segment;
-  int floorsInHouse;
-  String wallsMaterial;
-  int flatFloor;
-  int flatArea;
-  int kitchenArea;
-  bool hasBalcony;
-  double distanceFromMetro;
-  String condition;
+class InputFlat extends Flat {
   InputFlat({
-    required this.position,
-    required this.roomsCount,
-    required this.segment,
-    required this.floorsInHouse,
-    required this.wallsMaterial,
-    required this.flatFloor,
-    required this.flatArea,
-    required this.kitchenArea,
-    required this.hasBalcony,
-    required this.distanceFromMetro,
-    required this.condition,
-  });
+    required String position,
+    required int roomsCount,
+    required String segment,
+    required int floorsInHouse,
+    required String wallsMaterial,
+    required int flatFloor,
+    required int flatArea,
+    required int kitchenArea,
+    required bool hasBalcony,
+    required double distanceFromMetro,
+    required String condition,
+  }) : super(
+            position: position,
+            roomsCount: roomsCount,
+            segment: segment,
+            floorsInHouse: floorsInHouse,
+            wallsMaterial: wallsMaterial,
+            flatFloor: flatFloor,
+            flatArea: flatArea,
+            kitchenArea: kitchenArea,
+            hasBalcony: hasBalcony,
+            distanceFromMetro: distanceFromMetro,
+            condition: condition);
 
   factory InputFlat.fromRow(List<Data?> row) {
     return InputFlat(

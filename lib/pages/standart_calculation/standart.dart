@@ -1,36 +1,36 @@
 import 'dart:convert';
 
 import 'package:mos_estate/pages/standart_calculation/analogue.dart';
+import 'package:mos_estate/shared/models/flat.dart';
 
-class Standart {
-  String position;
-  int roomsCount;
-  String segment;
-  int floorsInHouse;
-  String wallsMaterial;
-  int flatFloor;
-  int flatArea;
-  int kitchenArea;
-  bool hasBalcony;
-  double distanceFromMetro;
-  String condition;
-
+class Standart extends Flat {
   Coordinates coordinates;
 
   Standart({
-    required this.position,
-    required this.roomsCount,
-    required this.segment,
-    required this.floorsInHouse,
-    required this.wallsMaterial,
-    required this.flatFloor,
-    required this.flatArea,
-    required this.kitchenArea,
-    required this.hasBalcony,
-    required this.distanceFromMetro,
-    required this.condition,
+    required String position,
+    required int roomsCount,
+    required String segment,
+    required int floorsInHouse,
+    required String wallsMaterial,
+    required int flatFloor,
+    required int flatArea,
+    required int kitchenArea,
+    required bool hasBalcony,
+    required double distanceFromMetro,
+    required String condition,
     required this.coordinates,
-  });
+  }) : super(
+            position: position,
+            roomsCount: roomsCount,
+            segment: segment,
+            floorsInHouse: floorsInHouse,
+            wallsMaterial: wallsMaterial,
+            flatFloor: flatFloor,
+            flatArea: flatArea,
+            kitchenArea: kitchenArea,
+            hasBalcony: hasBalcony,
+            distanceFromMetro: distanceFromMetro,
+            condition: condition);
 
   Map<String, dynamic> toMap() {
     return {

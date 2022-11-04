@@ -11,15 +11,15 @@ class StartupPage extends StatelessWidget {
   const StartupPage({super.key});
 
   _navigate(BuildContext context) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (d) => BlocProvider(
-    //       create: (context) => ImportCubit(),
-    //       child: const ImportPage(),
-    //     ),
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (d) => BlocProvider(
+          create: (context) => ImportCubit(),
+          child: const ImportPage(),
+        ),
+      ),
+    );
     //  Navigator.push(
     //   context,
     //   MaterialPageRoute(
@@ -29,15 +29,15 @@ class StartupPage extends StatelessWidget {
     //     ),
     //   ),
     // );
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (d) => BlocProvider(
-          create: (context) => StandartCalculationCubit(),
-          child: const StandartCalculationPage(),
-        ),
-      ),
-    );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (d) => BlocProvider(
+    //       create: (context) => StandartCalculationCubit(),
+    //       child: const StandartCalculationPage(),
+    //     ),
+    //   ),
+    // );
   }
 
   @override

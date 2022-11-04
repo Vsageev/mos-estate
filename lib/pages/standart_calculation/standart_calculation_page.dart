@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue_list.dart';
 import 'package:mos_estate/pages/standart_calculation/marker_drawers.dart';
+import 'package:mos_estate/pages/standart_calculation/ratios_tables/ratios_tables_page.dart';
 import 'package:mos_estate/pages/standart_calculation/standart.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_cubit.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_states.dart';
@@ -14,6 +15,7 @@ import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/shared/constants/parameters.dart';
 import 'package:mos_estate/shared/utils/get_random_string.dart';
 import 'package:mos_estate/shared/widget/button.dart';
+import 'package:mos_estate/shared/widget/flat_info_popup.dart';
 import 'package:mos_estate/shared/widget/navigated_page.dart';
 
 class StandartCalculationPage extends StatefulWidget {
@@ -128,6 +130,8 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                       Container(height: 24),
                       StandartPanel(
                         price: _getPrice(state.analogues, state.standart),
+                        setMapEnabled: _setMapGestureDetection,
+                        standart: state.standart,
                       )
                     ],
                   ),
@@ -142,13 +146,13 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                         color: Colors.white,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
+                          children: const [
                             Icon(
                               Icons.calendar_view_month,
                               color: CustomColors.brightAccent,
                               size: 21,
                             ),
-                            Container(width: 10),
+                            SizedBox(width: 10),
                             Text(
                               'Таблица поправок',
                               style: TextStyle(
@@ -159,7 +163,16 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                             ),
                           ],
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (d) => RatiosTablesPage(
+                                ratios: BlocProvider.of<StandartCalculationCubit>(context).ratios,
+                              ),
+                            ),
+                          );
+                        },
                       ),
                       AnalogueList(
                         setMapEnabled: _setMapGestureDetection,
@@ -187,11 +200,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                             ),
                           ],
                         ),
-                        onTap: () {
-                          state.analogues.forEach((element) {
-                            print(element.selected);
-                          });
-                        },
+                        onTap: () {},
                       ),
                     ],
                   ),

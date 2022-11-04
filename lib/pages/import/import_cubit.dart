@@ -24,17 +24,21 @@ class ImportCubit extends Cubit<ImportState> {
     }
   }
 
-  filter(String location) {
+  filter(String area) {
     if (state is ImportLoaded) {
       emit(ImportLoaded(
-          flats: lastFlats?.where((element) => element.position.contains(location)).toList() ?? [],
+          flats: lastFlats?.where((element) => element.flatArea.toString().contains(area)).toList() ?? [],
           selectedId: (state as ImportLoaded).selectedId));
     }
   }
 
   selectFlat(int id) {
     if (state is ImportLoaded) {
-      emit(ImportLoaded(flats: (state as ImportLoaded).flats, selectedId: id));
+      if (id == (state as ImportLoaded).selectedId) {
+        emit(ImportLoaded(flats: (state as ImportLoaded).flats, selectedId: null));
+      } else {
+        emit(ImportLoaded(flats: (state as ImportLoaded).flats, selectedId: id));
+      }
     }
   }
 

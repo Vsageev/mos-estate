@@ -22,7 +22,7 @@ class ImportPage extends StatelessWidget {
               children: [
                 Container(
                   height: 260,
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       begin: Alignment.topRight,
                       end: Alignment.bottomLeft,
@@ -50,6 +50,7 @@ class ImportPage extends StatelessWidget {
                             flat: state.flats[index],
                             selected: state.selectedId == index,
                             onSelected: () => BlocProvider.of<ImportCubit>(context).selectFlat(index),
+                            id: index + 1,
                           ),
                           childCount: state.flats.length,
                         ),
@@ -66,7 +67,7 @@ class ImportPage extends StatelessWidget {
           body: Stack(
             children: [
               Container(
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
@@ -82,10 +83,10 @@ class ImportPage extends StatelessWidget {
                   ),
                   Expanded(
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: CustomColors.background,
                       ),
-                      child: Center(
+                      child: const Center(
                         child: Icon(
                           Icons.timelapse,
                           color: CustomColors.div,

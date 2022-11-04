@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:mos_estate/pages/standart_calculation/standart.dart';
 import 'package:mos_estate/shared/utils/price_to_string.dart';
 import 'package:mos_estate/shared/widget/button.dart';
+import 'package:mos_estate/shared/widget/flat_info_popup.dart';
 
 class StandartPanel extends StatelessWidget {
-  const StandartPanel({super.key, required this.price});
+  const StandartPanel({super.key, required this.price, required this.setMapEnabled, required this.standart});
 
+  final Standart standart;
   final int price;
+  final Function setMapEnabled;
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +52,17 @@ class StandartPanel extends StatelessWidget {
                 ),
               ],
             ),
-            onTap: () {},
+            onTap: () {
+              setMapEnabled(false);
+
+              showDialog(
+                context: context,
+                builder: (_) => FlatInfoPopup(
+                  flat: standart,
+                  name: "Эталон",
+                ),
+              ).then((value) => setMapEnabled(true));
+            },
           ),
         ],
       ),
