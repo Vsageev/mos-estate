@@ -2,19 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/pages/import/input_flat.dart';
 import 'package:mos_estate/shared/widget/custom_checkbox.dart';
+import 'package:mos_estate/shared/widget/flat_info_popup.dart';
 
 class ImportFlatWidget extends StatelessWidget {
-  const ImportFlatWidget({super.key, required this.flat, required this.selected, required this.onSelected});
+  const ImportFlatWidget(
+      {super.key, required this.flat, required this.selected, required this.onSelected, required this.id});
 
   final bool selected;
   final Function onSelected;
   final InputFlat flat;
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       height: 77,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
         color: CustomColors.background,
         border: Border(
           top: BorderSide(color: CustomColors.div, width: 1),
@@ -35,7 +38,7 @@ class ImportFlatWidget extends StatelessWidget {
                 Container(width: 20),
                 Text(
                   "${flat.flatArea}м²",
-                  style: TextStyle(color: CustomColors.brightAccent, fontWeight: FontWeight.w700, fontSize: 20),
+                  style: const TextStyle(color: CustomColors.brightAccent, fontWeight: FontWeight.w700, fontSize: 20),
                 ),
                 Container(width: 20),
                 Expanded(
@@ -48,7 +51,7 @@ class ImportFlatWidget extends StatelessWidget {
                     child: Center(
                       child: Text(
                         flat.position,
-                        style: TextStyle(color: CustomColors.text, fontWeight: FontWeight.w700, fontSize: 11),
+                        style: const TextStyle(color: CustomColors.text, fontWeight: FontWeight.w700, fontSize: 11),
                       ),
                     ),
                   ),
@@ -70,7 +73,17 @@ class ImportFlatWidget extends StatelessWidget {
                   ImportFlatParameter(name: "Этаж", value: "${flat.flatFloor}/${flat.floorsInHouse}"),
                   ImportFlatParameter(name: "Материал стен", value: flat.wallsMaterial),
                   ImportFlatParameter(name: "Сегмент", value: flat.segment),
-                  IconButton(onPressed: () {}, icon: Icon(Icons.more_vert, color: CustomColors.brightAccent, size: 30)),
+                  IconButton(
+                      onPressed: () {
+                        showDialog(
+                          context: context,
+                          builder: (_) => FlatInfoPopup(
+                            flat: flat,
+                            name: "Квартира $id",
+                          ),
+                        );
+                      },
+                      icon: const Icon(Icons.remove_red_eye, color: CustomColors.brightAccent, size: 30)),
                 ],
               ),
             ),

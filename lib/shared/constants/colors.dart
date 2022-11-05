@@ -2,22 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class CustomColors {
-  static Color get text => Colors.black;
-  static Color get background => Colors.white;
-  static Color get backgroundAccent => const Color.fromARGB(255, 246, 247, 247);
-  static Color get brightAccent => const Color.fromARGB(255, 61, 138, 204);
-  static Color get darkAccent => const Color.fromARGB(255, 22, 60, 113);
-  static Color get buttonLight => const Color.fromARGB(255, 126, 181, 234);
+  static const Color text = Colors.black;
+  static const Color background = Colors.white;
+  static const Color backgroundAccent = Color.fromARGB(255, 246, 247, 247);
+  static const Color brightAccent = Color.fromARGB(255, 61, 138, 204);
+  static const Color darkAccent = Color.fromARGB(255, 22, 60, 113);
+  static const Color buttonLight = Color.fromARGB(255, 126, 181, 234);
 
-  static Color get div => const Color.fromARGB(255, 207, 207, 207);
-  static Color get searchbar => const Color.fromARGB(255, 237, 237, 237);
-  static Color get hint => const Color.fromARGB(255, 90, 90, 90);
+  static const Color div = Color.fromARGB(255, 207, 207, 207);
+  static const Color searchbar = Color.fromARGB(255, 237, 237, 237);
+  static const Color hint = Color.fromARGB(255, 90, 90, 90);
 
-  static Color get gradient1 => const Color.fromARGB(255, 71, 157, 235);
-  static Color get gradient2 => const Color.fromARGB(255, 49, 115, 193);
+  static const Color gradient1 = Color.fromARGB(255, 71, 157, 235);
+  static const Color gradient2 = Color.fromARGB(255, 49, 115, 193);
 
-  static Color get navbar => const Color.fromARGB(255, 200, 200, 200);
-  static Brightness get systemBrightness => Brightness.dark;
+  static const Color navbar = Color.fromARGB(255, 200, 200, 200);
+  static const Brightness systemBrightness = Brightness.dark;
 }
 
 changeNavbarColor() {

@@ -10,6 +10,7 @@ class StartupPage extends StatelessWidget {
   const StartupPage({super.key});
   
 
+
   _navigate(BuildContext context) {
     var token = LoginService.instance.token;
     if (token == null) {
