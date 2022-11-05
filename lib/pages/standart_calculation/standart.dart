@@ -15,8 +15,8 @@ class Standart extends Flat {
     required int flatFloor,
     required int flatArea,
     required int kitchenArea,
-    required bool hasBalcony,
-    required double distanceFromMetro,
+    required String hasBalcony,
+    required int distanceFromMetro,
     required String condition,
     required this.coordinates,
   }) : super(
