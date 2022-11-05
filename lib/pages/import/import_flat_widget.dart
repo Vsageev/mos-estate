@@ -31,6 +31,11 @@ class ImportFlatWidget extends StatelessWidget {
             child: Row(
               children: [
                 Container(width: 20),
+                Text(
+                  (id + 1).toString(),
+                  style: const TextStyle(color: CustomColors.brightAccent, fontWeight: FontWeight.w700, fontSize: 20),
+                ),
+                Container(width: 20),
                 CustomCheckbox(
                   selected: selected,
                   onSelected: onSelected,
@@ -79,7 +84,7 @@ class ImportFlatWidget extends StatelessWidget {
                           context: context,
                           builder: (_) => FlatInfoPopup(
                             flat: flat,
-                            name: "Квартира $id",
+                            name: "Квартира ${id + 1}",
                           ),
                         );
                       },
