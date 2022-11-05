@@ -46,10 +46,10 @@ class LoginPage extends StatelessWidget {
               const SizedBox(height: 41.6),
               CustomTextForm(hint: "Имя пользователя", controller: username),
               const SizedBox(height: 28.8),
-              CustomTextForm(hint: "Пароль", controller: username),
+              CustomTextForm(hint: "Пароль", controller: password, hidden: true),
               const SizedBox(height: 47.2),
               Button(
-                onTap: () {},
+                onTap: () => BlocProvider.of<LoginCubit>(context).tryLogin(username.text,password.text),
                 width: double.infinity,
                 padding: const EdgeInsets.symmetric(vertical: 19.2),
                 child: const Center(
