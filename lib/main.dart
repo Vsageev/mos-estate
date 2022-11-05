@@ -5,6 +5,7 @@ import 'package:overlay_support/overlay_support.dart';
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(
     OverlaySupport(
       child: MaterialApp(
