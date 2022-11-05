@@ -9,7 +9,7 @@ class RatioDefiner {
     return 1;
   }
 
-  static int flatArea(int area) {
+  static int flatArea(double area) {
     if (area < 30) {
       return 0;
     }
@@ -28,7 +28,7 @@ class RatioDefiner {
     return 5;
   }
 
-  static int kitchenArea(int area) {
+  static int kitchenArea(double area) {
     if (area < 7) {
       return 0;
     }
@@ -40,7 +40,7 @@ class RatioDefiner {
 
   static int balcony(String value) {
     switch (value.toLowerCase()) {
-      case "есть":
+      case "да":
         return 1;
       default:
         return 0;

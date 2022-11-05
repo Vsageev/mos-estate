@@ -5,13 +5,13 @@ class ExportFlat extends Flat {
   int pricePerSqMeter;
   ExportFlat({
     required String position,
-    required int roomsCount,
+    required String roomsCount,
     required String segment,
     required int floorsInHouse,
     required String wallsMaterial,
     required int flatFloor,
-    required int flatArea,
-    required int kitchenArea,
+    required double flatArea,
+    required double kitchenArea,
     required String hasBalcony,
     required int distanceFromMetro,
     required String condition,

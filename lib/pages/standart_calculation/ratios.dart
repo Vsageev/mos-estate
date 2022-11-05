@@ -42,7 +42,7 @@ class Ratios {
         );
       case Parameter.hasBalcony:
         return Ratios(
-          names: ['Нет', 'Есть'],
+          names: ['Нет', 'Да'],
           values: [
             [0, -0.05],
             [0.053, 0],

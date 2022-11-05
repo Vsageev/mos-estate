@@ -39,7 +39,7 @@ class ExportFlatWidget extends StatelessWidget {
                 const Expanded(child: SizedBox.shrink()),
                 ExportFlatParameter(name: "Цена за метр", value: priceToString(flat.pricePerSqMeter)),
                 const Expanded(child: SizedBox.shrink()),
-                ExportFlatParameter(name: "Цена", value: priceToString(flat.pricePerSqMeter * flat.flatArea)),
+                ExportFlatParameter(name: "Цена", value: priceToString((flat.pricePerSqMeter * flat.flatArea).round())),
                 Container(width: 20),
               ],
             ),

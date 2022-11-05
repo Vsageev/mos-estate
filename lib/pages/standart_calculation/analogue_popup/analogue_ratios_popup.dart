@@ -188,7 +188,7 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
                   children: [
                     Center(
                       child: Container(
-                        width: 600,
+                        width: 650,
                         padding: const EdgeInsets.all(50),
                         decoration: BoxDecoration(
                           color: CustomColors.backgroundAccent,

@@ -15,11 +15,11 @@ class ImportCubit extends Cubit<ImportState> {
   List<InputFlat>? lastFlats;
 
   pickFile() async {
-    emit(ImportWaiting());
-
     FilePickerResult? result = await FilePicker.platform.pickFiles();
 
     if (result != null) {
+      emit(ImportWaiting());
+
       final bytes = result.files.first.bytes;
       var excel = Excel.decodeBytes(bytes!);
 
@@ -58,7 +58,8 @@ class ImportCubit extends Cubit<ImportState> {
           navigatorKey.currentContext!,
           MaterialPageRoute(
             builder: (d) => BlocProvider(
-              create: (context) => StandartCalculationCubit(),
+              create: (context) =>
+                  StandartCalculationCubit((state as ImportLoaded).flats[(state as ImportLoaded).selectedId!]),
               child: const StandartCalculationPage(),
             ),
           ),

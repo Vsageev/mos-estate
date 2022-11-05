@@ -3,6 +3,8 @@ import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:mos_estate/pages/export/export_cubit.dart';
+import 'package:mos_estate/pages/export/export_page.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue_list.dart';
 import 'package:mos_estate/pages/standart_calculation/marker_drawers.dart';
@@ -93,7 +95,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
       }
     }
 
-    return i != 0 ? (sum * standart.flatArea) ~/ i : 0;
+    return i != 0 ? sum ~/ i : 0;
   }
 
   @override
@@ -129,7 +131,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                       ),
                       Container(height: 24),
                       StandartPanel(
-                        price: _getPrice(state.analogues, state.standart),
+                        price: (_getPrice(state.analogues, state.standart) * state.standart.flatArea).round(),
                         setMapEnabled: _setMapGestureDetection,
                         standart: state.standart,
                       )
@@ -200,7 +202,17 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                             ),
                           ],
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (d) => BlocProvider(
+                                create: (context) => ExportCubit(_getPrice(state.analogues, state.standart)),
+                                child: const ExportPage(),
+                              ),
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
