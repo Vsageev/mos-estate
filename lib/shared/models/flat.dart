@@ -7,8 +7,8 @@ class Flat {
   int flatFloor;
   int flatArea;
   int kitchenArea;
-  bool hasBalcony;
-  double distanceFromMetro;
+  String hasBalcony;
+  int distanceFromMetro;
   String condition;
   Flat({
     required this.position,

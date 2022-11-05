@@ -50,7 +50,7 @@ class ImportPage extends StatelessWidget {
                             flat: state.flats[index],
                             selected: state.selectedId == index,
                             onSelected: () => BlocProvider.of<ImportCubit>(context).selectFlat(index),
-                            id: index + 1,
+                            id: index,
                           ),
                           childCount: state.flats.length,
                         ),

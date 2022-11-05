@@ -55,7 +55,7 @@ class StandartCalculationCubit extends Cubit<StandartCalculationState> {
       flatFloor: 3,
       flatArea: 100,
       kitchenArea: 12,
-      hasBalcony: true,
+      hasBalcony: "Есть",
       distanceFromMetro: 10,
       condition: "Без ремонта",
       coordinates: Coordinates(lat: 55.7607139, lng: 37.6006965),

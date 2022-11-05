@@ -1,16 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:mos_estate/pages/export/export_flat.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
-import 'package:mos_estate/pages/import/input_flat.dart';
-import 'package:mos_estate/shared/widget/custom_checkbox.dart';
+import 'package:mos_estate/shared/utils/price_to_string.dart';
 import 'package:mos_estate/shared/widget/flat_info_popup.dart';
 
-class ImportFlatWidget extends StatelessWidget {
-  const ImportFlatWidget(
-      {super.key, required this.flat, required this.selected, required this.onSelected, required this.id});
+class ExportFlatWidget extends StatelessWidget {
+  const ExportFlatWidget({super.key, required this.flat, required this.id});
 
-  final bool selected;
-  final Function onSelected;
-  final InputFlat flat;
+  final ExportFlat flat;
   final int id;
 
   @override
@@ -27,7 +24,6 @@ class ImportFlatWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Expanded(
-            flex: 1,
             child: Row(
               children: [
                 Container(width: 20),
@@ -36,31 +32,14 @@ class ImportFlatWidget extends StatelessWidget {
                   style: const TextStyle(color: CustomColors.brightAccent, fontWeight: FontWeight.w700, fontSize: 20),
                 ),
                 Container(width: 20),
-                CustomCheckbox(
-                  selected: selected,
-                  onSelected: onSelected,
-                ),
-                Container(width: 20),
                 Text(
                   "${flat.flatArea}м²",
                   style: const TextStyle(color: CustomColors.brightAccent, fontWeight: FontWeight.w700, fontSize: 20),
                 ),
-                Container(width: 20),
-                Expanded(
-                  child: Container(
-                    height: 30,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: CustomColors.darkAccent, width: 2),
-                      borderRadius: BorderRadius.circular(5),
-                    ),
-                    child: Center(
-                      child: Text(
-                        flat.position,
-                        style: const TextStyle(color: CustomColors.text, fontWeight: FontWeight.w700, fontSize: 11),
-                      ),
-                    ),
-                  ),
-                ),
+                const Expanded(child: SizedBox.shrink()),
+                ExportFlatParameter(name: "Цена за метр", value: priceToString(flat.pricePerSqMeter)),
+                const Expanded(child: SizedBox.shrink()),
+                ExportFlatParameter(name: "Цена", value: priceToString(flat.pricePerSqMeter * flat.flatArea)),
                 Container(width: 20),
               ],
             ),
@@ -74,10 +53,11 @@ class ImportFlatWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  ImportFlatParameter(name: "Количество комнат", value: flat.roomsCount.toString()),
-                  ImportFlatParameter(name: "Этаж", value: "${flat.flatFloor}/${flat.floorsInHouse}"),
-                  ImportFlatParameter(name: "Материал стен", value: flat.wallsMaterial),
-                  ImportFlatParameter(name: "Сегмент", value: flat.segment),
+                  ExportFlatParameter(name: "Количество комнат", value: flat.roomsCount.toString()),
+                  ExportFlatParameter(name: "Этаж", value: "${flat.flatFloor}/${flat.floorsInHouse}"),
+                  ExportFlatParameter(name: "Материал стен", value: flat.wallsMaterial),
+                  ExportFlatParameter(name: "Состояние", value: flat.condition),
+                  ExportFlatParameter(name: "Сегмент", value: flat.segment),
                   IconButton(
                       onPressed: () {
                         showDialog(
@@ -99,8 +79,8 @@ class ImportFlatWidget extends StatelessWidget {
   }
 }
 
-class ImportFlatParameter extends StatelessWidget {
-  const ImportFlatParameter({super.key, required this.name, required this.value});
+class ExportFlatParameter extends StatelessWidget {
+  const ExportFlatParameter({super.key, required this.name, required this.value});
 
   final String name;
   final String value;
@@ -113,11 +93,11 @@ class ImportFlatParameter extends StatelessWidget {
       children: [
         Text(
           value,
-          style: TextStyle(color: CustomColors.brightAccent, fontWeight: FontWeight.w700, fontSize: 24),
+          style: const TextStyle(color: CustomColors.brightAccent, fontWeight: FontWeight.w700, fontSize: 24),
         ),
         Text(
           name,
-          style: TextStyle(color: CustomColors.text, fontWeight: FontWeight.w500, fontSize: 12),
+          style: const TextStyle(color: CustomColors.text, fontWeight: FontWeight.w500, fontSize: 12),
         ),
       ],
     );

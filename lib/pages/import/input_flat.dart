@@ -13,8 +13,8 @@ class InputFlat extends Flat {
     required int flatFloor,
     required int flatArea,
     required int kitchenArea,
-    required bool hasBalcony,
-    required double distanceFromMetro,
+    required String hasBalcony,
+    required int distanceFromMetro,
     required String condition,
   }) : super(
             position: position,
@@ -39,8 +39,8 @@ class InputFlat extends Flat {
       flatFloor: row[5]?.value,
       flatArea: row[6]?.value,
       kitchenArea: row[7]?.value,
-      hasBalcony: _getBool(row[8]?.value.toString() ?? ""),
-      distanceFromMetro: (row[9]?.value as int).toDouble(),
+      hasBalcony: row[8]?.value,
+      distanceFromMetro: row[9]?.value,
       condition: row[10]?.value,
     );
   }
