@@ -13,6 +13,7 @@ class StartupPage extends StatelessWidget {
   const StartupPage({super.key});
   
 
+
   _navigate(BuildContext context) async {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       var token = prefs.getString('token');

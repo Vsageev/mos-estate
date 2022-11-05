@@ -206,43 +206,73 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
                               Container(height: 30),
                               Text(
                                 widget.analogue.position,
-                                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700, fontSize: 18, color: CustomColors.brightAccent),
                               ),
+                              const SizedBox(height: 5),
+                              Text.rich(
+                                TextSpan(
+                                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                                  children: <TextSpan>[
+                                    const TextSpan(text: 'Количество комнат: '),
+                                    TextSpan(
+                                        text: widget.analogue.roomsCount.toString(),
+                                        style: const TextStyle(color: CustomColors.brightAccent)),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 5),
                               Text(
                                 widget.analogue.segment,
-                                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                                style: const TextStyle(
+                                    fontWeight: FontWeight.w700, fontSize: 18, color: CustomColors.brightAccent),
                               ),
-                              Text(
-                                'Материал стен: ${widget.analogue.wallsMaterial}',
-                                style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                              const SizedBox(height: 5),
+                              Text.rich(
+                                TextSpan(
+                                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                                  children: <TextSpan>[
+                                    const TextSpan(text: 'Материал стен: '),
+                                    TextSpan(
+                                        text: widget.analogue.wallsMaterial,
+                                        style: const TextStyle(color: CustomColors.brightAccent)),
+                                  ],
+                                ),
                               ),
+                              const SizedBox(height: 20),
                               FeatureRatio(
-                                featureName: 'Этаж: ${widget.analogue.flatFloor}/${widget.analogue.floorsInHouse}',
+                                featureName: 'Этаж: ',
+                                featureValue: '${widget.analogue.flatFloor}/${widget.analogue.floorsInHouse}',
                                 hint: widget.hintFloor,
                                 controller: floorRatio,
                               ),
                               FeatureRatio(
-                                featureName: 'Площадь квартиры: ${widget.analogue.flatArea}м²',
+                                featureName: 'Площадь квартиры: ',
+                                featureValue: '${widget.analogue.flatArea}м²',
                                 hint: widget.hintFlatArea,
                                 controller: flatAreaRatio,
                               ),
                               FeatureRatio(
-                                featureName: 'Площадь кухни: ${widget.analogue.kitchenArea}м²',
+                                featureName: 'Площадь кухни: ',
+                                featureValue: '${widget.analogue.kitchenArea}м²',
                                 hint: widget.hintKitchenArea,
                                 controller: kitchenAreaRatio,
                               ),
                               FeatureRatio(
-                                featureName: 'Балкон/лоджа: ${widget.analogue.hasBalcony}',
+                                featureName: 'Балкон/лоджа: ',
+                                featureValue: widget.analogue.hasBalcony,
                                 hint: widget.hintBalcony,
                                 controller: balconyRatio,
                               ),
                               FeatureRatio(
-                                featureName: 'Удаленность от метро: ${widget.analogue.distanceFromMetro} мин.',
+                                featureName: 'Удаленность от метро: ',
+                                featureValue: '${widget.analogue.distanceFromMetro} мин.',
                                 hint: widget.hintMetro,
                                 controller: metroDistanceRatio,
                               ),
                               FeatureRatio(
-                                featureName: 'Состояние: ${widget.analogue.condition}',
+                                featureName: 'Состояние: ',
+                                featureValue: widget.analogue.condition,
                                 hint: widget.hintCondition,
                                 controller: conditionRatio,
                               ),

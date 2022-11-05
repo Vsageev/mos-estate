@@ -67,7 +67,7 @@ class AnalogueListAnalogue extends StatelessWidget {
               Container(width: 10),
               Text(
                 "${analogue.flatArea}м²",
-                style: TextStyle(
+                style: const TextStyle(
                   color: CustomColors.brightAccent,
                   fontWeight: FontWeight.w700,
                   fontSize: 19,
@@ -88,7 +88,7 @@ class AnalogueListAnalogue extends StatelessWidget {
                     ),
                   ).then((value) => setMapEnabled(true));
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.edit,
                   color: CustomColors.darkAccent,
                   size: 19,

@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue_popup/ratio_field.dart';
+import 'package:mos_estate/shared/constants/colors.dart';
 
 class FeatureRatio extends StatelessWidget {
-  const FeatureRatio({super.key, required this.featureName, required this.hint, required this.controller});
+  const FeatureRatio({
+    super.key,
+    required this.featureName,
+    required this.hint,
+    required this.controller,
+    required this.featureValue,
+  });
 
   final String featureName;
+  final String featureValue;
   final String hint;
   final TextEditingController controller;
 
@@ -17,9 +23,14 @@ class FeatureRatio extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            featureName,
-            style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+          Text.rich(
+            TextSpan(
+              style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+              children: <TextSpan>[
+                TextSpan(text: featureName),
+                TextSpan(text: featureValue, style: const TextStyle(color: CustomColors.brightAccent)),
+              ],
+            ),
           ),
           SizedBox(
             width: 150,
