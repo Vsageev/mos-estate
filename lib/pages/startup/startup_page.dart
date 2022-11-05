@@ -6,38 +6,37 @@ import 'package:mos_estate/pages/login/login_cubit.dart';
 import 'package:mos_estate/pages/login/login_page.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_cubit.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_page.dart';
+import 'package:mos_estate/shared/services/login_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StartupPage extends StatelessWidget {
   const StartupPage({super.key});
+  
 
-  _navigate(BuildContext context) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (d) => BlocProvider(
-    //       create: (context) => ImportCubit(),
-    //       child: const ImportPage(),
-    //     ),
-    //   ),
-    // );
-    //  Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (d) => BlocProvider(
-    //       create: (context) => LoginCubit(),
-    //       child: LoginPage(),
-    //     ),
-    //   ),
-    // );
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (d) => BlocProvider(
-          create: (context) => StandartCalculationCubit(),
-          child: const StandartCalculationPage(),
+  _navigate(BuildContext context) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      var token = prefs.getString('token');
+    if (token == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (d) => BlocProvider(
+            create: (context) => LoginCubit(),
+            child: LoginPage(),
+          ),
         ),
-      ),
-    );
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (d) => BlocProvider(
+            create: (context) => ImportCubit(),
+            child: const ImportPage(),
+          ),
+        ),
+      );
+    }
   }
 
   @override

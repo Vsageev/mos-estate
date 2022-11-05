@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 
 class CustomTextForm extends StatelessWidget {
-  const CustomTextForm({Key? key, required this.hint, required this.controller}) : super(key: key);
+  const CustomTextForm({Key? key, required this.hint, required this.controller, this.hidden = false}) : super(key: key);
 
+  final bool hidden;
   final String hint;
   final TextEditingController controller;
 
@@ -18,6 +19,7 @@ class CustomTextForm extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              obscureText: hidden,
               maxLines: 1,
               controller: controller,
               style: TextStyle(fontSize: 16, color: CustomColors.text, fontWeight: FontWeight.w500),
