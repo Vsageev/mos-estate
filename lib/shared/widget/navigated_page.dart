@@ -44,7 +44,7 @@ class NavigatedPage extends StatelessWidget {
                     height: 26,
                     width: 26,
                     child: Image.network(
-                      'assets/decorations/logo.png',
+                      'assets/logo.png',
                       isAntiAlias: true,
                     ),
                   ),

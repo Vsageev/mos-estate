@@ -22,7 +22,7 @@ void main() async {
       child: BlocProvider(
         create: (c) => PoolCubit(),
         child: MaterialApp(
-          title: 'Flutter Demo',
+          title: 'Аналитический центр',
           debugShowCheckedModeBanner: false,
           navigatorKey: navigatorKey,
           home: _navigate(),
