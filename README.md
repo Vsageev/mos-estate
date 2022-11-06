@@ -1,16 +1,19 @@
-# mos_estate
+# Mos Estate
 
-A new Flutter project.
+Перед вами веб сервис для расчета стоимости массива объектов на основании открытых данных. Данный проект был сделан для "Аналитического центра Москва" в рамках 6го трека ЛЦТ 2022:
 
-## Getting Started
+https://leaders2022.innoagency.ru/task6.html
 
-This project is a starting point for a Flutter application.
+За дизайн спасибо Елизавете Ворониной (пока не знаю какую ссылку здесь поместить)
 
-A few resources to get you started if this is your first Flutter project:
+## Формат входных данных
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Импортируемый файл должен иметь расширение .xslx и содержать массив квартир по образцу в assets (можете использовать его для тестирования). 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+ВНИМАНИЕ в файле следует хранить только значения; стили, формулы и прочее могут вызвать ошибку в чтении файла.
+
+## Если решите запустить у себя не забудьте следующее
+
+1) Сгенерируйте недостающие папки при помощи `flutter create .`
+
+2) Добавьте ключ для гугл карт в соответствии с инструкциями в библиотеке
