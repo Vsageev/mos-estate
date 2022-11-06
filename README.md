@@ -6,6 +6,10 @@ https://leaders2022.innoagency.ru/task6.html
 
 За дизайн спасибо Елизавете Ворониной (пока не знаю какую ссылку здесь поместить)
 
+Сайт: https://flasklct.herokuapp.com/#/
+
+Видео с демонстрацией работы: https://drive.google.com/file/d/18JxelX1ajCAsr97MbvEyt_rj0dQ8Ugya/view?usp=share_link
+
 ## Формат входных данных
 
 Импортируемый файл должен иметь расширение .xslx и содержать массив квартир по образцу (main_example.xlsx) в assets (можете использовать его для тестирования). 
