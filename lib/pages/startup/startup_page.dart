@@ -8,8 +8,6 @@ import 'package:mos_estate/shared/services/login_service.dart';
 
 class StartupPage extends StatelessWidget {
   const StartupPage({super.key});
-  
-
 
   _navigate(BuildContext context) {
     var token = LoginService.instance.token;

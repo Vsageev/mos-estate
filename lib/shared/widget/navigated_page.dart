@@ -28,17 +28,20 @@ class NavigatedPage extends StatelessWidget {
             Container(
               height: 55,
               padding: const EdgeInsets.symmetric(horizontal: 40),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 border: Border(
                   bottom: BorderSide(color: CustomColors.div, width: 1),
                 ),
               ),
               child: Row(
                 children: [
-                  Container(
+                  SizedBox(
                     height: 26,
                     width: 26,
-                    color: CustomColors.brightAccent,
+                    child: Image.network(
+                      'assets/decorations/logo.png',
+                      isAntiAlias: true,
+                    ),
                   ),
                   Container(width: 16),
                   const Text(

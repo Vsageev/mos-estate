@@ -4,6 +4,7 @@ import 'package:mos_estate/pages/standart_calculation/analogue_popup/feature_rat
 import 'package:mos_estate/pages/standart_calculation/ratios.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/shared/constants/parameters.dart';
+import 'package:mos_estate/shared/utils/price_to_string.dart';
 import 'package:mos_estate/shared/widget/button.dart';
 import 'package:mos_estate/shared/widget/show_error_notification.dart';
 
@@ -164,6 +165,22 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
       conditionRatio.text != widget.initCondition ||
       bargainRatio.text != widget.initBargain;
 
+  int _getPrice() {
+    final bargainRatio = widget.defaultBargainRatio;
+    final ratios = widget.defaultRatios;
+
+    var tempPrice = widget.analogue.price.toDouble();
+    for (var p in Parameter.values) {
+      tempPrice *= (1 +
+          (widget.analogue.ratios[p] ??
+              ratios[p]!.values[widget.analogue.ratiosCoordinates[p]!.row]
+                  [widget.analogue.ratiosCoordinates[p]!.column]));
+    }
+    tempPrice *= 1 + (widget.analogue.bargainRatio.value ?? bargainRatio.value!);
+
+    return tempPrice.toInt();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -188,7 +205,7 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
                   children: [
                     Center(
                       child: Container(
-                        width: 600,
+                        width: 650,
                         padding: const EdgeInsets.all(50),
                         decoration: BoxDecoration(
                           color: CustomColors.backgroundAccent,
@@ -275,6 +292,30 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
                                 featureValue: widget.analogue.condition,
                                 hint: widget.hintCondition,
                                 controller: conditionRatio,
+                              ),
+                              Container(height: 20),
+                              Text.rich(
+                                TextSpan(
+                                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                                  children: <TextSpan>[
+                                    const TextSpan(text: 'Цена до поправок: '),
+                                    TextSpan(
+                                        text: priceToString(widget.analogue.price),
+                                        style: const TextStyle(color: CustomColors.brightAccent)),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(height: 5),
+                              Text.rich(
+                                TextSpan(
+                                  style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 18),
+                                  children: <TextSpan>[
+                                    const TextSpan(text: 'Цена после поправок: '),
+                                    TextSpan(
+                                        text: priceToString(_getPrice()),
+                                        style: const TextStyle(color: CustomColors.brightAccent)),
+                                  ],
+                                ),
                               ),
                               Container(height: 30),
                             ],

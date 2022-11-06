@@ -1,10 +1,10 @@
 enum Parameter {
-  floor("floor"),
-  flatArea("flatArea"),
-  kitchenArea("kitchenArea"),
-  hasBalcony("hasBalcony"),
-  distanceFromMetro("distanceFromMetro"),
-  condition("condition");
+  floor("typeOfFloor"),
+  flatArea("typeOfArea"),
+  kitchenArea("typeOfKitchenArea"),
+  hasBalcony("typeOfBalcony"),
+  distanceFromMetro("typeOfMetroTime"),
+  condition("typeOfStatusFinish");
 
   final String value;
 
@@ -12,17 +12,17 @@ enum Parameter {
 
   static Parameter fromValue(String value) {
     switch (value) {
-      case "floor":
+      case "typeOfFloor":
         return Parameter.floor;
-      case "flatArea":
+      case "typeOfArea":
         return Parameter.flatArea;
-      case "kitchenArea":
+      case "typeOfKitchenArea":
         return Parameter.kitchenArea;
-      case "hasBalcony":
+      case "typeOfBalcony":
         return Parameter.hasBalcony;
-      case "distanceFromMetro":
+      case "typeOfMetroTime":
         return Parameter.distanceFromMetro;
-      case "condition":
+      case "typeOfStatusFinish":
         return Parameter.condition;
       default:
         return Parameter.floor;

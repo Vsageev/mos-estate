@@ -7,6 +7,6 @@ class PoolCubit extends Cubit<PoolState> {
 
   void submitPool(List<InputFlat> pool, int selectedId) {
     final selected = pool[selectedId];
-    emit(PoolSelected(pool: pool..remove(selected), selected: selected));
+    emit(PoolSelected(pool: List.from(pool)..remove(selected), selected: selected));
   }
 }

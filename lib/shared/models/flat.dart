@@ -1,12 +1,12 @@
 class Flat {
   String position;
-  int roomsCount;
+  String roomsCount;
   String segment;
   int floorsInHouse;
   String wallsMaterial;
   int flatFloor;
-  int flatArea;
-  int kitchenArea;
+  double flatArea;
+  double kitchenArea;
   String hasBalcony;
   int distanceFromMetro;
   String condition;

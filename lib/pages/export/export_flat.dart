@@ -1,17 +1,18 @@
 import 'package:mos_estate/pages/import/input_flat.dart';
 import 'package:mos_estate/shared/models/flat.dart';
+import 'package:mos_estate/shared/utils/price_to_string.dart';
 
 class ExportFlat extends Flat {
   int pricePerSqMeter;
   ExportFlat({
     required String position,
-    required int roomsCount,
+    required String roomsCount,
     required String segment,
     required int floorsInHouse,
     required String wallsMaterial,
     required int flatFloor,
-    required int flatArea,
-    required int kitchenArea,
+    required double flatArea,
+    required double kitchenArea,
     required String hasBalcony,
     required int distanceFromMetro,
     required String condition,
@@ -43,5 +44,24 @@ class ExportFlat extends Flat {
         distanceFromMetro: flat.distanceFromMetro,
         condition: flat.condition,
         pricePerSqMeter: meterPrice);
+  }
+
+  List<String> toRow({bool isStandart = false}) {
+    return [
+          position,
+          roomsCount,
+          segment,
+          floorsInHouse.toString(),
+          wallsMaterial,
+          flatFloor.toString(),
+          flatArea.toString(),
+          kitchenArea.toString(),
+          hasBalcony,
+          distanceFromMetro.toString(),
+          condition,
+          priceToString(pricePerSqMeter),
+          priceToString((pricePerSqMeter * flatArea).round())
+        ] +
+        (isStandart ? ['Эталон'] : []);
   }
 }

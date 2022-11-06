@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:mos_estate/pages/standart_calculation/models/standart_response.dart';
 import 'package:mos_estate/shared/constants/parameters.dart';
 
 class Analogue {
@@ -17,7 +18,7 @@ class Analogue {
 
   Map<Parameter, RatioCoordinates> ratiosCoordinates;
   int price;
-  Coordinates coordinates;
+  Location coordinates;
 
   String position;
   int roomsCount;
@@ -25,11 +26,12 @@ class Analogue {
   int floorsInHouse;
   String wallsMaterial;
   int flatFloor;
-  int flatArea;
-  int kitchenArea;
+  double flatArea;
+  double kitchenArea;
   String hasBalcony;
-  double distanceFromMetro;
+  int distanceFromMetro;
   String condition;
+  List<String> imageUrls;
 
   Analogue({
     required this.ratiosCoordinates,
@@ -46,56 +48,42 @@ class Analogue {
     required this.hasBalcony,
     required this.distanceFromMetro,
     required this.condition,
+    required this.imageUrls,
   });
 
-  Map<String, dynamic> toMap() {
-    return {
-      'ratiosCoordinates': ratiosCoordinates.toMap(),
-      'price': price,
-      'coordinates': coordinates.toMap(),
-      'position': position,
-      'roomsCount': roomsCount,
-      'segment': segment,
-      'floorsInHouse': floorsInHouse,
-      'wallsMaterial': wallsMaterial,
-      'flatFloor': flatFloor,
-      'flatArea': flatArea,
-      'kitchenArea': kitchenArea,
-      'hasBalcony': hasBalcony,
-      'distanceFromMetro': distanceFromMetro,
-      'condition': condition,
-    };
-  }
-
-  factory Analogue.fromMap(Map<String, dynamic> map) {
+  factory Analogue.fromResponseAnalogue(StandartResponseAnalogue analogue) {
     return Analogue(
-      ratiosCoordinates: ratioCoordsfromMap(map['ratiosCoordinates']),
-      price: map['price']?.toInt() ?? 0,
-      coordinates: Coordinates.fromMap(map['coordinates']),
-      position: map['position'] ?? '',
-      roomsCount: map['roomsCount']?.toInt() ?? 0,
-      segment: map['segment'] ?? '',
-      floorsInHouse: map['floorsInHouse']?.toInt() ?? 0,
-      wallsMaterial: map['wallsMaterial'] ?? '',
-      flatFloor: map['flatFloor']?.toInt() ?? 0,
-      flatArea: map['flatArea']?.toInt() ?? 0,
-      kitchenArea: map['kitchenArea']?.toInt() ?? 0,
-      hasBalcony: map['hasBalcony'] ?? false,
-      distanceFromMetro: map['distanceFromMetro']?.toDouble() ?? 0.0,
-      condition: map['condition'] ?? '',
+      ratiosCoordinates: {
+        Parameter.floor: RatioCoordinates.fromArray(analogue.typeOfFloor),
+        Parameter.flatArea: RatioCoordinates.fromArray(analogue.typeOfArea),
+        Parameter.kitchenArea: RatioCoordinates.fromArray(analogue.typeOfKitchenArea),
+        Parameter.hasBalcony: RatioCoordinates.fromArray(analogue.typeOfBalcony),
+        Parameter.distanceFromMetro: RatioCoordinates.fromArray(analogue.typeOfMetroTime),
+        Parameter.condition: RatioCoordinates.fromArray(analogue.typeOfStatusFinish),
+      },
+      price: analogue.price,
+      coordinates: analogue.location,
+      position: analogue.address,
+      roomsCount: analogue.roomsCount,
+      segment: analogue.segment,
+      floorsInHouse: analogue.maxFloor,
+      wallsMaterial: analogue.material,
+      flatFloor: analogue.floor,
+      flatArea: double.tryParse(analogue.area) ?? 0,
+      kitchenArea: double.tryParse(analogue.kitchenArea) ?? 0,
+      hasBalcony: analogue.balcony,
+      distanceFromMetro: analogue.metroTime,
+      condition: analogue.statusFinish,
+      imageUrls: analogue.photos,
     );
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory Analogue.fromJson(String source) => Analogue.fromMap(json.decode(source));
 }
 
-class Coordinates {
+class Location {
   final double lat;
   final double lng;
 
-  Coordinates({
+  Location({
     required this.lat,
     required this.lng,
   });
@@ -107,16 +95,16 @@ class Coordinates {
     };
   }
 
-  factory Coordinates.fromMap(Map<String, dynamic> map) {
-    return Coordinates(
-      lat: map['lat']?.toDouble() ?? 0.0,
-      lng: map['lng']?.toDouble() ?? 0.0,
+  factory Location.fromMap(Map<String, dynamic> map) {
+    return Location(
+      lat: double.tryParse(map['lat']) ?? 0.0,
+      lng: double.tryParse(map['lng']) ?? 0.0,
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Coordinates.fromJson(String source) => Coordinates.fromMap(json.decode(source));
+  factory Location.fromJson(String source) => Location.fromMap(json.decode(source));
 }
 
 class RatioCoordinates {
@@ -127,6 +115,13 @@ class RatioCoordinates {
     required this.row,
     required this.column,
   });
+
+  factory RatioCoordinates.fromArray(List<int> arr) {
+    return RatioCoordinates(
+      row: arr[0],
+      column: arr[1],
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -154,7 +149,7 @@ extension CoordinatesMapping on Map<Parameter, RatioCoordinates> {
 }
 
 Map<Parameter, RatioCoordinates> ratioCoordsfromMap(Map<String, dynamic> json) {
-  return json.map((key, value) => MapEntry(Parameter.fromValue(key), RatioCoordinates.fromMap(value)));
+  return json.map((key, value) => MapEntry(Parameter.fromValue(key), RatioCoordinates.fromArray(value)));
 }
 
 class BargainRatio {

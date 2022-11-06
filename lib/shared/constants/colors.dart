@@ -13,6 +13,7 @@ class CustomColors {
   static const Color searchbar = Color.fromARGB(255, 237, 237, 237);
   static const Color hint = Color.fromARGB(255, 90, 90, 90);
 
+  static const Color importBackground = Color.fromARGB(255, 53, 123, 201);
   static const Color gradient1 = Color.fromARGB(255, 71, 157, 235);
   static const Color gradient2 = Color.fromARGB(255, 49, 115, 193);
 

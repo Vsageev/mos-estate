@@ -52,11 +52,11 @@ Future<Uint8List> drawStandart(int width, int height) async {
   TextPainter painter = TextPainter(textDirection: TextDirection.ltr);
   painter.text = const TextSpan(
     text: '*',
-    style: TextStyle(fontSize: 20.0, color: Colors.white),
+    style: TextStyle(fontSize: 40.0, color: Colors.white),
   );
 
   painter.layout();
-  painter.paint(canvas, Offset((width * 0.5) - painter.width * 0.5, (height * .5) - painter.height * 0.5));
+  painter.paint(canvas, Offset((width * 0.5) - painter.width * 0.5, (height * .5) - painter.height * 0.3));
   final img = await pictureRecorder.endRecording().toImage(width, height);
   final data = await img.toByteData(format: ImageByteFormat.png);
   return data!.buffer.asUint8List();

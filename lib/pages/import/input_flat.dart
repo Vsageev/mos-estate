@@ -6,13 +6,13 @@ import 'package:mos_estate/shared/models/flat.dart';
 class InputFlat extends Flat {
   InputFlat({
     required String position,
-    required int roomsCount,
+    required String roomsCount,
     required String segment,
     required int floorsInHouse,
     required String wallsMaterial,
     required int flatFloor,
-    required int flatArea,
-    required int kitchenArea,
+    required double flatArea,
+    required double kitchenArea,
     required String hasBalcony,
     required int distanceFromMetro,
     required String condition,
@@ -32,7 +32,7 @@ class InputFlat extends Flat {
   factory InputFlat.fromRow(List<Data?> row) {
     return InputFlat(
       position: (row[0]?.value ?? "").toString(),
-      roomsCount: row[1]?.value,
+      roomsCount: (row[1]?.value).toString(),
       segment: row[2]?.value,
       floorsInHouse: row[3]?.value,
       wallsMaterial: row[4]?.value,
@@ -43,10 +43,6 @@ class InputFlat extends Flat {
       distanceFromMetro: row[9]?.value,
       condition: row[10]?.value,
     );
-  }
-
-  static bool _getBool(String str) {
-    return str == "Да" ? true : false;
   }
 
   Map<String, dynamic> toMap() {

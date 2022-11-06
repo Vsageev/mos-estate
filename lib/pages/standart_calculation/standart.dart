@@ -1,20 +1,21 @@
 import 'dart:convert';
 
 import 'package:mos_estate/pages/standart_calculation/analogue.dart';
+import 'package:mos_estate/pages/standart_calculation/models/standart_response.dart';
 import 'package:mos_estate/shared/models/flat.dart';
 
 class Standart extends Flat {
-  Coordinates coordinates;
+  Location coordinates;
 
   Standart({
     required String position,
-    required int roomsCount,
+    required String roomsCount,
     required String segment,
     required int floorsInHouse,
     required String wallsMaterial,
     required int flatFloor,
-    required int flatArea,
-    required int kitchenArea,
+    required double flatArea,
+    required double kitchenArea,
     required String hasBalcony,
     required int distanceFromMetro,
     required String condition,
@@ -31,6 +32,40 @@ class Standart extends Flat {
             hasBalcony: hasBalcony,
             distanceFromMetro: distanceFromMetro,
             condition: condition);
+
+  factory Standart.empty() {
+    return Standart(
+      position: '',
+      roomsCount: '0',
+      segment: '',
+      floorsInHouse: 0,
+      wallsMaterial: '',
+      flatFloor: 0,
+      flatArea: 0,
+      kitchenArea: 0,
+      hasBalcony: '',
+      distanceFromMetro: 0,
+      condition: '',
+      coordinates: Location(lat: 0, lng: 0),
+    );
+  }
+
+  factory Standart.fromResponseStandart(StandartResponseStandart standart) {
+    return Standart(
+      position: standart.address,
+      roomsCount: standart.room,
+      segment: standart.segment,
+      floorsInHouse: standart.maxFloor,
+      wallsMaterial: standart.material,
+      flatFloor: standart.correctFloor,
+      flatArea: standart.correctArea,
+      kitchenArea: standart.correctKitchenArea,
+      hasBalcony: standart.correctBalcony,
+      distanceFromMetro: standart.correctMetroTime,
+      condition: standart.correctStatusFinish,
+      coordinates: standart.location,
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
@@ -62,7 +97,7 @@ class Standart extends Flat {
       hasBalcony: map['hasBalcony'] ?? false,
       distanceFromMetro: map['distanceFromMetro']?.toDouble() ?? 0.0,
       condition: map['condition'] ?? '',
-      coordinates: Coordinates.fromMap(map['coordinates']),
+      coordinates: Location.fromMap(map['coordinates']),
     );
   }
 

@@ -22,41 +22,50 @@ class ImportPage extends StatelessWidget {
               children: [
                 Container(
                   height: 260,
-                  decoration: const BoxDecoration(
-                    gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      colors: [CustomColors.gradient2, CustomColors.gradient1],
-                    ),
+                  width: 20000,
+                  decoration: const BoxDecoration(color: CustomColors.importBackground),
+                  child: Image.network(
+                    'assets/decorations/import.png',
+                    fit: BoxFit.cover,
                   ),
                 ),
-                Expanded(
-                  child: CustomScrollView(
-                    slivers: [
-                      const SliverToBoxAdapter(
-                        child: SizedBox(
-                          height: 250,
-                          child: ImportWidget(),
-                        ),
+                CustomScrollView(
+                  slivers: [
+                    const SliverToBoxAdapter(
+                      child: SizedBox(
+                        height: 250,
+                        child: ImportWidget(),
                       ),
-                      SliverPinnedHeader(
-                        child: ImprotHeader(
-                          flatSelected: state.selectedId != null,
-                        ),
+                    ),
+                    SliverPinnedHeader(
+                      child: ImportHeader(
+                        flatSelected: state.selectedId != null,
                       ),
-                      SliverList(
-                        delegate: SliverChildBuilderDelegate(
-                          (context, index) => ImportFlatWidget(
-                            flat: state.flats[index],
-                            selected: state.selectedId == index,
-                            onSelected: () => BlocProvider.of<ImportCubit>(context).selectFlat(index),
-                            id: index,
+                    ),
+                    if (state.flats.isEmpty)
+                      SliverToBoxAdapter(
+                        child: Padding(
+                          padding: const EdgeInsets.all(20),
+                          child: Center(
+                            child: Text(
+                              "Таких квартир не нашлось",
+                              style: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.w700, fontSize: 20),
+                            ),
                           ),
-                          childCount: state.flats.length,
                         ),
                       ),
-                    ],
-                  ),
+                    SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) => ImportFlatWidget(
+                          flat: state.flats[index],
+                          selected: state.selectedId == index,
+                          onSelected: () => BlocProvider.of<ImportCubit>(context).selectFlat(index),
+                          id: index,
+                        ),
+                        childCount: state.flats.length,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -67,12 +76,12 @@ class ImportPage extends StatelessWidget {
           body: Stack(
             children: [
               Container(
-                decoration: const BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topRight,
-                    end: Alignment.bottomLeft,
-                    colors: [CustomColors.gradient2, CustomColors.gradient1],
-                  ),
+                height: 260,
+                width: 20000,
+                decoration: const BoxDecoration(color: CustomColors.importBackground),
+                child: Image.network(
+                  'assets/decorations/import.png',
+                  fit: BoxFit.cover,
                 ),
               ),
               Column(
@@ -86,11 +95,10 @@ class ImportPage extends StatelessWidget {
                       decoration: const BoxDecoration(
                         color: CustomColors.background,
                       ),
-                      child: const Center(
-                        child: Icon(
-                          Icons.timelapse,
-                          color: CustomColors.div,
-                          size: 40,
+                      child: Center(
+                        child: Text(
+                          "Импортируйте данные",
+                          style: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.w700, fontSize: 30),
                         ),
                       ),
                     ),
