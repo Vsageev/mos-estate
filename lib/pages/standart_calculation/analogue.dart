@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:mos_estate/pages/standart_calculation/models/standart_response.dart';
 import 'package:mos_estate/shared/constants/parameters.dart';
+import 'package:mos_estate/shared/utils/random_fluctuation.dart';
 
 class Analogue {
   BargainRatio bargainRatio = BargainRatio();
@@ -97,8 +98,8 @@ class Location {
 
   factory Location.fromMap(Map<String, dynamic> map) {
     return Location(
-      lat: double.tryParse(map['lat']) ?? 0.0,
-      lng: double.tryParse(map['lng']) ?? 0.0,
+      lat: (double.tryParse(map['lat']) ?? 0.0) + randomFluctuation(),
+      lng: (double.tryParse(map['lng']) ?? 0.0) + randomFluctuation(),
     );
   }
 

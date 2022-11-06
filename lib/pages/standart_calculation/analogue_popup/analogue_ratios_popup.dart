@@ -258,6 +258,12 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
                               ),
                               const SizedBox(height: 20),
                               FeatureRatio(
+                                featureName: 'Поправка на торг: ',
+                                featureValue: '',
+                                hint: widget.hintBargain,
+                                controller: bargainRatio,
+                              ),
+                              FeatureRatio(
                                 featureName: 'Этаж: ',
                                 featureValue: '${widget.analogue.flatFloor}/${widget.analogue.floorsInHouse}',
                                 hint: widget.hintFloor,

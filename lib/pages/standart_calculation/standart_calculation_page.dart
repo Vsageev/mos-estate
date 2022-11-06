@@ -44,7 +44,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
           Uint8List markerIcon = await drawAnalogue(i, 30, 30, e.selected);
           return BitmapDescriptor.fromBytes(markerIcon);
         }()),
-        position: LatLng(e.coordinates.lat + randomFluctuation(), e.coordinates.lng + randomFluctuation()),
+        position: LatLng(e.coordinates.lat, e.coordinates.lng),
         markerId: MarkerId(
           getRandomString(5),
         ),
