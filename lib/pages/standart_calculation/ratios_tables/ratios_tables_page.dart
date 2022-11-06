@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:mos_estate/pages/standart_calculation/analogue.dart';
 import 'package:mos_estate/pages/standart_calculation/ratios.dart';
+import 'package:mos_estate/pages/standart_calculation/ratios_tables/bargain_table.dart';
 import 'package:mos_estate/pages/standart_calculation/ratios_tables/ratio_table.dart';
 import 'package:mos_estate/shared/constants/parameters.dart';
 
 class RatiosTablesPage extends StatelessWidget {
-  const RatiosTablesPage({super.key, required this.ratios});
+  const RatiosTablesPage(
+      {super.key, required this.ratios, required this.bargainRatio, required this.conditionAdjustments});
 
   final Map<Parameter, Ratios> ratios;
+  final BargainRatio bargainRatio;
+  final ConditionAdjustments conditionAdjustments;
 
   @override
   Widget build(BuildContext context) {
@@ -16,6 +21,7 @@ class RatiosTablesPage extends StatelessWidget {
           SingleChildScrollView(
             child: Column(
               children: [
+                BargainTable(ratio: bargainRatio),
                 ...ratios
                     .map(
                       (key, value) => MapEntry(

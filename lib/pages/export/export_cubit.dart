@@ -27,27 +27,27 @@ class ExportCubit extends Cubit<ExportState> {
     final standartFlatMetroRatio = RatioDefiner.metro(standartExport.distanceFromMetro);
     final standartFlatConditionRatio = RatioDefiner.condition(standartExport.condition);
 
+    ConditionAdjustments conditionAdjustments = ConditionAdjustments.creteStandart();
     Map<Parameter, Ratios> ratios = {
       Parameter.floor: Ratios.creteStandart(parameter: Parameter.floor),
       Parameter.flatArea: Ratios.creteStandart(parameter: Parameter.flatArea),
       Parameter.kitchenArea: Ratios.creteStandart(parameter: Parameter.kitchenArea),
       Parameter.hasBalcony: Ratios.creteStandart(parameter: Parameter.hasBalcony),
       Parameter.distanceFromMetro: Ratios.creteStandart(parameter: Parameter.distanceFromMetro),
-      Parameter.condition: Ratios.creteStandart(parameter: Parameter.condition),
     };
 
     final poolExport = pool.map((e) {
-      final price = standartPricePerSqMeter *
-          (1 + ratios[Parameter.floor]!.values[standartFloorRatio][RatioDefiner.floor(e.flatFloor, e.floorsInHouse)]) *
-          (1 + ratios[Parameter.flatArea]!.values[standartFlatAreaRatio][RatioDefiner.flatArea(e.flatArea)]) *
+      double price = standartPricePerSqMeter *
+          (1 + ratios[Parameter.floor]!.values[RatioDefiner.floor(e.flatFloor, e.floorsInHouse)][standartFloorRatio]) *
+          (1 + ratios[Parameter.flatArea]!.values[RatioDefiner.flatArea(e.flatArea)][standartFlatAreaRatio]) *
           (1 +
-              ratios[Parameter.kitchenArea]!.values[standartKitchenAreaRatio]
-                  [RatioDefiner.kitchenArea(e.kitchenArea)]) *
-          (1 + ratios[Parameter.hasBalcony]!.values[standartFlatBalconyRatio][RatioDefiner.balcony(e.hasBalcony)]) *
+              ratios[Parameter.kitchenArea]!.values[RatioDefiner.kitchenArea(e.kitchenArea)]
+                  [standartKitchenAreaRatio]) *
+          (1 + ratios[Parameter.hasBalcony]!.values[RatioDefiner.balcony(e.hasBalcony)][standartFlatBalconyRatio]) *
           (1 +
-              ratios[Parameter.distanceFromMetro]!.values[standartFlatMetroRatio]
-                  [RatioDefiner.metro(e.distanceFromMetro)]) *
-          (1 + ratios[Parameter.condition]!.values[standartFlatConditionRatio][RatioDefiner.condition(e.condition)]);
+              ratios[Parameter.distanceFromMetro]!.values[RatioDefiner.metro(e.distanceFromMetro)]
+                  [standartFlatMetroRatio]);
+      price += conditionAdjustments.values[RatioDefiner.condition(e.condition)][standartFlatConditionRatio];
 
       return ExportFlat.fromImport(e, price.toInt());
     }).toList();

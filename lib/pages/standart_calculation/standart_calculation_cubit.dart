@@ -7,7 +7,6 @@ import 'package:mos_estate/pages/standart_calculation/standart_calculation_state
 import 'package:mos_estate/requests/standart_requests.dart';
 import 'package:mos_estate/shared/constants/parameters.dart';
 import 'package:mos_estate/shared/services/login_service.dart';
-import 'package:mos_estate/shared/widget/show_error_notification.dart';
 
 class StandartCalculationCubit extends Cubit<StandartCalculationState> {
   StandartCalculationCubit(InputFlat standart) : super(StandartCalculationLoading()) {
@@ -15,13 +14,13 @@ class StandartCalculationCubit extends Cubit<StandartCalculationState> {
   }
 
   BargainRatio bargainRatio = BargainRatio(value: -0.045);
+  ConditionAdjustments conditionAdjustments = ConditionAdjustments.creteStandart();
   Map<Parameter, Ratios> ratios = {
     Parameter.floor: Ratios.creteStandart(parameter: Parameter.floor),
     Parameter.flatArea: Ratios.creteStandart(parameter: Parameter.flatArea),
     Parameter.kitchenArea: Ratios.creteStandart(parameter: Parameter.kitchenArea),
     Parameter.hasBalcony: Ratios.creteStandart(parameter: Parameter.hasBalcony),
     Parameter.distanceFromMetro: Ratios.creteStandart(parameter: Parameter.distanceFromMetro),
-    Parameter.condition: Ratios.creteStandart(parameter: Parameter.condition),
   };
 
   getAnalogues(InputFlat flat) async {

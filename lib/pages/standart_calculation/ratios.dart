@@ -60,17 +60,37 @@ class Ratios {
             [-0.22, -0.17, -0.13, -0.09, -0.04, 0],
           ],
         );
-      case Parameter.condition:
-        return Ratios(
-          names: ['Без отделки', 'Муниципальный ремонт', 'Современная отделка'],
-          values: [
-            [0, -0.07, -0.031],
-            [0.075, 0, 0.042],
-            [0.032, -0.04, 0],
-          ],
-        );
+      // case Parameter.condition:
+      //   return Ratios(
+      //     names: ['Без отделки', 'Муниципальный ремонт', 'Современная отделка'],
+      //     values: [
+      //       [0, -0.07, -0.031],
+      //       [0.075, 0, 0.042],
+      //       [0.032, -0.04, 0],
+      //     ],
+      //   );
       default:
         return Ratios(names: [], values: [[], []]);
     }
+  }
+}
+
+class ConditionAdjustments {
+  final List<String> names;
+  final List<List<int>> values;
+  ConditionAdjustments({
+    required this.names,
+    required this.values,
+  });
+
+  factory ConditionAdjustments.creteStandart() {
+    return ConditionAdjustments(
+      names: ['Без отделки', 'Муниципальный ремонт', 'Современная отделка'],
+      values: [
+        [0, -13400, -20100],
+        [13400, 0, -6700],
+        [20100, 6700, 0],
+      ],
+    );
   }
 }

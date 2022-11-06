@@ -3,8 +3,7 @@ enum Parameter {
   flatArea("typeOfArea"),
   kitchenArea("typeOfKitchenArea"),
   hasBalcony("typeOfBalcony"),
-  distanceFromMetro("typeOfMetroTime"),
-  condition("typeOfStatusFinish");
+  distanceFromMetro("typeOfMetroTime");
 
   final String value;
 
@@ -22,8 +21,6 @@ enum Parameter {
         return Parameter.hasBalcony;
       case "typeOfMetroTime":
         return Parameter.distanceFromMetro;
-      case "typeOfStatusFinish":
-        return Parameter.condition;
       default:
         return Parameter.floor;
     }
@@ -41,8 +38,8 @@ enum Parameter {
         return "Наличие балкона/лоджи";
       case Parameter.distanceFromMetro:
         return "Расстояние до метро (ед.изм. мин./пешком)";
-      case Parameter.condition:
-        return "Состояние отделки";
+      // case Parameter.condition:
+      //   return "Состояние отделки";
       default:
         return "";
     }

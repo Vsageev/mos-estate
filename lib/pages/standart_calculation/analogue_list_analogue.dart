@@ -85,6 +85,7 @@ class AnalogueListAnalogue extends StatelessWidget {
                       id: id,
                       defaultRatios: BlocProvider.of<StandartCalculationCubit>(context).ratios,
                       defaultBargainRatio: BlocProvider.of<StandartCalculationCubit>(context).bargainRatio,
+                      defaultConditionAdjustments: BlocProvider.of<StandartCalculationCubit>(context).conditionAdjustments,
                     ),
                   ).then((value) => setMapEnabled(true));
                 },

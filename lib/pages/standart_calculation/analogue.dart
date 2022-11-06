@@ -6,18 +6,19 @@ import 'package:mos_estate/shared/utils/random_fluctuation.dart';
 
 class Analogue {
   BargainRatio bargainRatio = BargainRatio();
+  ConditionAdjustment conditionAdjustment = ConditionAdjustment();
   Map<Parameter, double?> ratios = {
     Parameter.floor: null,
     Parameter.flatArea: null,
     Parameter.kitchenArea: null,
     Parameter.hasBalcony: null,
     Parameter.distanceFromMetro: null,
-    Parameter.condition: null,
   };
 
   bool selected = true;
 
   Map<Parameter, RatioCoordinates> ratiosCoordinates;
+  RatioCoordinates conditionCoordinates;
   int price;
   Location coordinates;
 
@@ -36,6 +37,7 @@ class Analogue {
 
   Analogue({
     required this.ratiosCoordinates,
+    required this.conditionCoordinates,
     required this.price,
     required this.coordinates,
     required this.position,
@@ -60,8 +62,8 @@ class Analogue {
         Parameter.kitchenArea: RatioCoordinates.fromArray(analogue.typeOfKitchenArea),
         Parameter.hasBalcony: RatioCoordinates.fromArray(analogue.typeOfBalcony),
         Parameter.distanceFromMetro: RatioCoordinates.fromArray(analogue.typeOfMetroTime),
-        Parameter.condition: RatioCoordinates.fromArray(analogue.typeOfStatusFinish),
       },
+      conditionCoordinates: RatioCoordinates.fromArray(analogue.typeOfStatusFinish),
       price: analogue.price,
       coordinates: analogue.location,
       position: analogue.address,
@@ -156,6 +158,13 @@ Map<Parameter, RatioCoordinates> ratioCoordsfromMap(Map<String, dynamic> json) {
 class BargainRatio {
   double? value;
   BargainRatio({
+    this.value,
+  });
+}
+
+class ConditionAdjustment {
+  int? value;
+  ConditionAdjustment({
     this.value,
   });
 }

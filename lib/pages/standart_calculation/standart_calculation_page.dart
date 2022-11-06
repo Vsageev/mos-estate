@@ -85,6 +85,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
     double tempPrice;
 
     final bargainRatio = BlocProvider.of<StandartCalculationCubit>(context).bargainRatio;
+    final conditionAdjustments = BlocProvider.of<StandartCalculationCubit>(context).conditionAdjustments;
     final ratios = BlocProvider.of<StandartCalculationCubit>(context).ratios;
 
     for (var e in analogues) {
@@ -97,6 +98,8 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
         tempPrice *= 1 + (e.bargainRatio.value ?? bargainRatio.value!);
         ++i;
         sum += tempPrice / e.flatArea;
+        sum += e.conditionAdjustment.value ??
+            conditionAdjustments.values[e.conditionCoordinates.row][e.conditionCoordinates.column];
       }
     }
 
@@ -175,6 +178,9 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                             context,
                             MaterialPageRoute(
                               builder: (d) => RatiosTablesPage(
+                                bargainRatio: BlocProvider.of<StandartCalculationCubit>(context).bargainRatio,
+                                conditionAdjustments:
+                                    BlocProvider.of<StandartCalculationCubit>(context).conditionAdjustments,
                                 ratios: BlocProvider.of<StandartCalculationCubit>(context).ratios,
                               ),
                             ),
@@ -295,6 +301,9 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                               context,
                               MaterialPageRoute(
                                 builder: (d) => RatiosTablesPage(
+                                  bargainRatio: BlocProvider.of<StandartCalculationCubit>(context).bargainRatio,
+                                  conditionAdjustments:
+                                      BlocProvider.of<StandartCalculationCubit>(context).conditionAdjustments,
                                   ratios: BlocProvider.of<StandartCalculationCubit>(context).ratios,
                                 ),
                               ),

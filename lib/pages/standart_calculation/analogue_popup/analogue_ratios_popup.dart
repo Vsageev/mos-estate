@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue_popup/analogue_picture.dart';
+import 'package:mos_estate/pages/standart_calculation/analogue_popup/condition_feature_adjustment.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue_popup/feature_ratio.dart';
 import 'package:mos_estate/pages/standart_calculation/ratios.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
@@ -17,13 +18,16 @@ class AnalogueRatiosPopup extends StatefulWidget {
       required this.updateUI,
       required this.id,
       required this.defaultBargainRatio,
+      required this.defaultConditionAdjustments,
       required this.defaultRatios}) {
     hintFloor = _getHintText(Parameter.floor);
     hintFlatArea = _getHintText(Parameter.flatArea);
     hintKitchenArea = _getHintText(Parameter.kitchenArea);
     hintBalcony = _getHintText(Parameter.hasBalcony);
     hintMetro = _getHintText(Parameter.distanceFromMetro);
-    hintCondition = _getHintText(Parameter.condition);
+    hintCondition = defaultConditionAdjustments.values[analogue.conditionCoordinates.row]
+            [analogue.conditionCoordinates.column]
+        .toString();
     hintBargain = "${defaultBargainRatio.value! * 100} %";
 
     initFloor = _getRatioInitText(analogue.ratios[Parameter.floor]);
@@ -31,7 +35,7 @@ class AnalogueRatiosPopup extends StatefulWidget {
     initKitchenArea = _getRatioInitText(analogue.ratios[Parameter.kitchenArea]);
     initBalcony = _getRatioInitText(analogue.ratios[Parameter.hasBalcony]);
     initMetro = _getRatioInitText(analogue.ratios[Parameter.distanceFromMetro]);
-    initCondition = _getRatioInitText(analogue.ratios[Parameter.condition]);
+    initCondition = analogue.conditionAdjustment.value != null ? analogue.conditionAdjustment.value.toString() : "";
     initBargain = _getRatioInitText(analogue.bargainRatio.value);
   }
 
@@ -48,6 +52,7 @@ class AnalogueRatiosPopup extends StatefulWidget {
   final int id;
 
   final BargainRatio defaultBargainRatio;
+  final ConditionAdjustments defaultConditionAdjustments;
   final Map<Parameter, Ratios> defaultRatios;
 
   var hintFloor = "";
@@ -114,10 +119,18 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
     widget.analogue.ratios[Parameter.kitchenArea] = _getValue(kitchenAreaRatio);
     widget.analogue.ratios[Parameter.hasBalcony] = _getValue(balconyRatio);
     widget.analogue.ratios[Parameter.distanceFromMetro] = _getValue(metroDistanceRatio);
-    widget.analogue.ratios[Parameter.condition] = _getValue(conditionRatio);
+    widget.analogue.conditionAdjustment.value = _getConditionValue(conditionRatio);
     widget.analogue.bargainRatio.value = _getValue(bargainRatio);
 
     Navigator.pop(context);
+  }
+
+  int? _getConditionValue(TextEditingController controller) {
+    if (controller.text != "") {
+      return int.tryParse(controller.text);
+    }
+
+    return null;
   }
 
   double? _getValue(TextEditingController controller) {
@@ -152,7 +165,7 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
       showErrorNotification('Неверно введена поправка для расстояния от метро');
       return true;
     }
-    if (conditionRatio.text.isNotEmpty && _getValue(conditionRatio) == null) {
+    if (conditionRatio.text.isNotEmpty && _getConditionValue(conditionRatio) == null) {
       showErrorNotification('Неверно введена поправка для отделки');
       return true;
     }
@@ -175,6 +188,7 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
 
   int _getPrice() {
     final bargainRatio = widget.defaultBargainRatio;
+    final conditionAdjustment = widget.defaultConditionAdjustments;
     final ratios = widget.defaultRatios;
 
     var tempPrice = widget.analogue.price.toDouble();
@@ -185,6 +199,11 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
                   [widget.analogue.ratiosCoordinates[p]!.column]));
     }
     tempPrice *= 1 + (widget.analogue.bargainRatio.value ?? bargainRatio.value!);
+
+    tempPrice += (widget.analogue.conditionAdjustment.value ??
+            conditionAdjustment.values[widget.analogue.conditionCoordinates.row]
+                [widget.analogue.conditionCoordinates.column]) *
+        widget.analogue.flatArea;
 
     return tempPrice.toInt();
   }
@@ -335,7 +354,7 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
                                 hint: widget.hintMetro,
                                 controller: metroDistanceRatio,
                               ),
-                              FeatureRatio(
+                              ConditionFeatureAdgustment(
                                 featureName: 'Состояние: ',
                                 featureValue: widget.analogue.condition,
                                 hint: widget.hintCondition,
