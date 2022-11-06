@@ -6,6 +6,8 @@ import 'package:mos_estate/pages/standart_calculation/standart.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_states.dart';
 import 'package:mos_estate/requests/standart_requests.dart';
 import 'package:mos_estate/shared/constants/parameters.dart';
+import 'package:mos_estate/shared/services/login_service.dart';
+import 'package:mos_estate/shared/widget/show_error_notification.dart';
 
 class StandartCalculationCubit extends Cubit<StandartCalculationState> {
   StandartCalculationCubit(InputFlat standart) : super(StandartCalculationLoading()) {
@@ -23,17 +25,19 @@ class StandartCalculationCubit extends Cubit<StandartCalculationState> {
   };
 
   getAnalogues(InputFlat flat) async {
-    print(flat);
+    try {
+      final resp = await StandartRequests.getAnalogues(flat);
 
-    print(flat.flatArea);
+      final Standart standart = Standart.fromResponseStandart(resp.standard);
 
-    final resp = await StandartRequests.getAnalogues(flat);
+      final List<Analogue> analogues = resp.analogs.map((e) => Analogue.fromResponseAnalogue(e)).toList();
 
-    final Standart standart = Standart.fromResponseStandart(resp.standard);
+      emit(StandartCalculationLoaded(analogues: analogues, standart: standart));
+    } catch (e) {
+      await LoginService.logout();
 
-    final List<Analogue> analogues = resp.analogs.map((e) => Analogue.fromResponseAnalogue(e)).toList();
-
-    emit(StandartCalculationLoaded(analogues: analogues, standart: standart));
+      showErrorNotification('Возникла проблема. Пожалуйста, перезайдите.');
+    }
   }
 
   update() {
