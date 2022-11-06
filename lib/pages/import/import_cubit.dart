@@ -8,6 +8,7 @@ import 'package:mos_estate/pages/import/import_states.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_cubit.dart';
 import 'package:mos_estate/pages/standart_calculation/standart_calculation_page.dart';
 import 'package:mos_estate/shared/pool_logic/pool_cubit.dart';
+import 'package:mos_estate/shared/widget/show_error_notification.dart';
 
 class ImportCubit extends Cubit<ImportState> {
   ImportCubit() : super(ImportWaiting());
@@ -15,22 +16,26 @@ class ImportCubit extends Cubit<ImportState> {
   List<InputFlat>? lastFlats;
 
   pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['xlsx'],
-    );
+    try {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        type: FileType.custom,
+        allowedExtensions: ['xlsx'],
+      );
 
-    if (result != null) {
-      emit(ImportWaiting());
+      if (result != null) {
+        emit(ImportWaiting());
 
-      final bytes = result.files.first.bytes;
-      var excel = Excel.decodeBytes(bytes!);
+        final bytes = result.files.first.bytes;
+        var excel = Excel.decodeBytes(bytes!);
 
-      final rows = excel.tables[excel.tables.keys.first]?.rows.sublist(1);
+        final rows = excel.tables[excel.tables.keys.first]?.rows.sublist(1);
 
-      lastFlats = rows?.map((e) => InputFlat.fromRow(e)).toList();
+        lastFlats = rows?.map((e) => InputFlat.fromRow(e)).toList();
 
-      emit(ImportLoaded(flats: lastFlats ?? []));
+        emit(ImportLoaded(flats: lastFlats ?? []));
+      }
+    } catch (e) {
+      showErrorNotification('Не удалось прочитать документ. Убедитесь, что он не содержит форматирования, формул и прочего.');
     }
   }
 

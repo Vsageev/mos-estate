@@ -20,14 +20,6 @@ showErrorNotification(String text) {
             )),
       );
     },
-    duration: const Duration(seconds: 1),
+    duration: const Duration(seconds: 5),
   );
-
-  // ScaffoldMessenger.of(navigatorKey.currentState!.context).showSnackBar(SnackBar(
-  //   backgroundColor: CustomColors.backgroundAccent,
-  //   content: Text(
-  //     text,
-  //     style: TextStyle(color: CustomColors.text),
-  //   ),
-  // ));
 }
