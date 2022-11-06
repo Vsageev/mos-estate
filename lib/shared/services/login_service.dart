@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mos_estate/main.dart';
 import 'package:mos_estate/pages/login/login_cubit.dart';
 import 'package:mos_estate/pages/login/login_page.dart';
+import 'package:mos_estate/shared/widget/show_error_notification.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
@@ -14,7 +15,7 @@ class LoginService {
 
   static LoginService get instance => _instance;
 
-  static logout() async {
+  static logout({String? message}) async {
     final preferences = await SharedPreferences.getInstance();
     preferences.clear();
     _instance.token = null;
@@ -30,5 +31,9 @@ class LoginService {
         ),
       ),
     );
+
+    if (message != null) {
+      showErrorNotification('Возникла проблема. Пожалуйста, перезайдите.');
+    }
   }
 }

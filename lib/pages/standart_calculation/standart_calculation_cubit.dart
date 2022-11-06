@@ -34,9 +34,7 @@ class StandartCalculationCubit extends Cubit<StandartCalculationState> {
 
       emit(StandartCalculationLoaded(analogues: analogues, standart: standart));
     } catch (e) {
-      await LoginService.logout();
-
-      showErrorNotification('Возникла проблема. Пожалуйста, перезайдите.');
+      await LoginService.logout(message: 'Возникла проблема. Пожалуйста, перезайдите.');
     }
   }
 

@@ -18,38 +18,29 @@ class AnalogueRatiosPopup extends StatefulWidget {
       required this.id,
       required this.defaultBargainRatio,
       required this.defaultRatios}) {
-    hintFloor = defaultRatios[Parameter.floor]!
-        .values[analogue.ratiosCoordinates[Parameter.floor]!.row][analogue.ratiosCoordinates[Parameter.floor]!.column]
-        .toString();
-    hintFlatArea = defaultRatios[Parameter.flatArea]!
-        .values[analogue.ratiosCoordinates[Parameter.flatArea]!.row]
-            [analogue.ratiosCoordinates[Parameter.flatArea]!.column]
-        .toString();
-    hintKitchenArea = defaultRatios[Parameter.kitchenArea]!
-        .values[analogue.ratiosCoordinates[Parameter.kitchenArea]!.row]
-            [analogue.ratiosCoordinates[Parameter.kitchenArea]!.column]
-        .toString();
-    hintBalcony = defaultRatios[Parameter.hasBalcony]!
-        .values[analogue.ratiosCoordinates[Parameter.hasBalcony]!.row]
-            [analogue.ratiosCoordinates[Parameter.hasBalcony]!.column]
-        .toString();
-    hintMetro = defaultRatios[Parameter.distanceFromMetro]!
-        .values[analogue.ratiosCoordinates[Parameter.distanceFromMetro]!.row]
-            [analogue.ratiosCoordinates[Parameter.distanceFromMetro]!.column]
-        .toString();
-    hintCondition = defaultRatios[Parameter.condition]!
-        .values[analogue.ratiosCoordinates[Parameter.condition]!.row]
-            [analogue.ratiosCoordinates[Parameter.condition]!.column]
-        .toString();
-    hintBargain = defaultBargainRatio.value.toString();
+    hintFloor = _getHintText(Parameter.floor);
+    hintFlatArea = _getHintText(Parameter.flatArea);
+    hintKitchenArea = _getHintText(Parameter.kitchenArea);
+    hintBalcony = _getHintText(Parameter.hasBalcony);
+    hintMetro = _getHintText(Parameter.distanceFromMetro);
+    hintCondition = _getHintText(Parameter.condition);
+    hintBargain = "${defaultBargainRatio.value! * 100} %";
 
-    initFloor = (analogue.ratios[Parameter.floor] ?? "").toString();
-    initFlatArea = (analogue.ratios[Parameter.flatArea] ?? "").toString();
-    initKitchenArea = (analogue.ratios[Parameter.kitchenArea] ?? "").toString();
-    initBalcony = (analogue.ratios[Parameter.hasBalcony] ?? "").toString();
-    initMetro = (analogue.ratios[Parameter.distanceFromMetro] ?? "").toString();
-    initCondition = (analogue.ratios[Parameter.condition] ?? "").toString();
-    initBargain = (analogue.bargainRatio.value ?? "").toString();
+    initFloor = _getRatioInitText(analogue.ratios[Parameter.floor]);
+    initFlatArea = _getRatioInitText(analogue.ratios[Parameter.flatArea]);
+    initKitchenArea = _getRatioInitText(analogue.ratios[Parameter.kitchenArea]);
+    initBalcony = _getRatioInitText(analogue.ratios[Parameter.hasBalcony]);
+    initMetro = _getRatioInitText(analogue.ratios[Parameter.distanceFromMetro]);
+    initCondition = _getRatioInitText(analogue.ratios[Parameter.condition]);
+    initBargain = _getRatioInitText(analogue.bargainRatio.value);
+  }
+
+  String _getHintText(Parameter parameter) {
+    return "${(defaultRatios[parameter]!.values[analogue.ratiosCoordinates[parameter]!.row][analogue.ratiosCoordinates[parameter]!.column] * 100).toStringAsFixed(1)} %";
+  }
+
+  String _getRatioInitText(double? ratio) {
+    return ratio != null ? "${(ratio * 100).toStringAsFixed(1)}%" : "";
   }
 
   final Analogue analogue;
@@ -118,43 +109,54 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
       return;
     }
 
-    widget.analogue.ratios[Parameter.floor] = double.tryParse(floorRatio.text);
-    widget.analogue.ratios[Parameter.flatArea] = double.tryParse(flatAreaRatio.text);
-    widget.analogue.ratios[Parameter.kitchenArea] = double.tryParse(kitchenAreaRatio.text);
-    widget.analogue.ratios[Parameter.hasBalcony] = double.tryParse(balconyRatio.text);
-    widget.analogue.ratios[Parameter.distanceFromMetro] = double.tryParse(metroDistanceRatio.text);
-    widget.analogue.ratios[Parameter.condition] = double.tryParse(conditionRatio.text);
-    widget.analogue.bargainRatio.value = double.tryParse(bargainRatio.text);
+    widget.analogue.ratios[Parameter.floor] = _getValue(floorRatio);
+    widget.analogue.ratios[Parameter.flatArea] = _getValue(flatAreaRatio);
+    widget.analogue.ratios[Parameter.kitchenArea] = _getValue(kitchenAreaRatio);
+    widget.analogue.ratios[Parameter.hasBalcony] = _getValue(balconyRatio);
+    widget.analogue.ratios[Parameter.distanceFromMetro] = _getValue(metroDistanceRatio);
+    widget.analogue.ratios[Parameter.condition] = _getValue(conditionRatio);
+    widget.analogue.bargainRatio.value = _getValue(bargainRatio);
 
     Navigator.pop(context);
   }
 
+  double? _getValue(TextEditingController controller) {
+    if (controller.text.length > 1) {
+      final temp = double.tryParse(controller.text.substring(0, controller.text.length - 1));
+
+      if (temp != null) {
+        return temp / 100;
+      }
+    }
+    return null;
+  }
+
   bool _hasErrors() {
-    if (floorRatio.text.isNotEmpty && double.tryParse(floorRatio.text) == null) {
+    if (floorRatio.text.isNotEmpty && _getValue(floorRatio) == null) {
       showErrorNotification('Неверно введена поправка для этажа');
       return true;
     }
-    if (flatAreaRatio.text.isNotEmpty && double.tryParse(flatAreaRatio.text) == null) {
+    if (flatAreaRatio.text.isNotEmpty && _getValue(flatAreaRatio) == null) {
       showErrorNotification('Неверно введена поправка для площади квартиры');
       return true;
     }
-    if (kitchenAreaRatio.text.isNotEmpty && double.tryParse(kitchenAreaRatio.text) == null) {
+    if (kitchenAreaRatio.text.isNotEmpty && _getValue(kitchenAreaRatio) == null) {
       showErrorNotification('Неверно введена поправка для площади кухни');
       return true;
     }
-    if (balconyRatio.text.isNotEmpty && double.tryParse(balconyRatio.text) == null) {
+    if (balconyRatio.text.isNotEmpty && _getValue(balconyRatio) == null) {
       showErrorNotification('Неверно введена поправка для наличия балкона/лоджи');
       return true;
     }
-    if (metroDistanceRatio.text.isNotEmpty && double.tryParse(metroDistanceRatio.text) == null) {
+    if (metroDistanceRatio.text.isNotEmpty && _getValue(metroDistanceRatio) == null) {
       showErrorNotification('Неверно введена поправка для расстояния от метро');
       return true;
     }
-    if (conditionRatio.text.isNotEmpty && double.tryParse(conditionRatio.text) == null) {
+    if (conditionRatio.text.isNotEmpty && _getValue(conditionRatio) == null) {
       showErrorNotification('Неверно введена поправка для отделки');
       return true;
     }
-    if (bargainRatio.text.isNotEmpty && double.tryParse(bargainRatio.text) == null) {
+    if (bargainRatio.text.isNotEmpty && _getValue(bargainRatio) == null) {
       showErrorNotification('Неверно введена поправка для торга');
       return true;
     }

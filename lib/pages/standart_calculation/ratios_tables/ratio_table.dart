@@ -13,6 +13,10 @@ class RatioTable extends StatelessWidget {
     width: 3,
   );
 
+  String _getPercents(double ratio) {
+    return "${(ratio * 100).toStringAsFixed(1)}%";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -150,7 +154,7 @@ class RatioTable extends StatelessWidget {
                                       (e) => Expanded(
                                         child: Center(
                                           child: Text(
-                                            e.toString(),
+                                            _getPercents(e),
                                             style: TextStyle(
                                               color: e == 0 ? const Color.fromRGBO(207, 207, 207, 1) : Colors.black,
                                               fontSize: 21,
