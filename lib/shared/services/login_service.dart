@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mos_estate/main.dart';
-import 'package:mos_estate/pages/startup/startup_page.dart';
+import 'package:mos_estate/pages/login/login_cubit.dart';
+import 'package:mos_estate/pages/login/login_page.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginService {
@@ -21,7 +23,12 @@ class LoginService {
 
     await Navigator.push(
       navigatorKey.currentContext!,
-      MaterialPageRoute(builder: (d) => const StartupPage()),
+      MaterialPageRoute(
+        builder: (d) => BlocProvider(
+          create: (context) => LoginCubit(),
+          child: LoginPage(),
+        ),
+      ),
     );
   }
 }
