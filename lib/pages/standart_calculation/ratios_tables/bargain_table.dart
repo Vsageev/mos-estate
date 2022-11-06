@@ -33,36 +33,24 @@ class BargainTable extends StatelessWidget {
               children: [
                 Container(
                   decoration: const BoxDecoration(
-                    border: Border(
-                      right: _side,
-                    ),
+                    border: Border(right: _side),
                   ),
+                  width: 150,
                   child: Column(
                     children: [
                       Container(
-                        height: 100,
-                        width: 150,
                         decoration: const BoxDecoration(
                           border: Border(bottom: _side),
                         ),
-                        padding: const EdgeInsets.all(10),
+                        height: 50,
                       ),
-                      Container(
-                        decoration: const BoxDecoration(
-                          border: Border(left: _side),
-                        ),
-                        child: const SizedBox(
-                          height: 50,
-                          width: 90,
-                          child: Center(
-                            child: Text(
-                              'Корректировка на торг',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                      const SizedBox(
+                        height: 70,
+                        child: Center(
+                          child: Text(
+                            'Корректировка на торг',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
                           ),
                         ),
                       )
@@ -71,39 +59,28 @@ class BargainTable extends StatelessWidget {
                 ),
                 Expanded(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Container(
-                        height: 50,
                         decoration: const BoxDecoration(
                           border: Border(bottom: _side),
                         ),
+                        height: 50,
                         child: const Center(
                           child: Text(
                             'Значение',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                            ),
+                            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                           ),
                         ),
                       ),
                       SizedBox(
-                        height: 50,
-                        child: Expanded(
-                          child: Center(
-                            child: Text(
-                              _getPercents(ratio.value!),
-                              style: const TextStyle(
-                                color: Colors.black,
-                                fontSize: 21,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
+                        height: 70,
+                        child: Center(
+                          child: Text(
+                            _getPercents(ratio.value!),
+                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
                           ),
                         ),
-                      ),
+                      )
                     ],
                   ),
                 )

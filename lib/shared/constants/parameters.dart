@@ -38,8 +38,6 @@ enum Parameter {
         return "Наличие балкона/лоджи";
       case Parameter.distanceFromMetro:
         return "Расстояние до метро (ед.изм. мин./пешком)";
-      // case Parameter.condition:
-      //   return "Состояние отделки";
       default:
         return "";
     }
