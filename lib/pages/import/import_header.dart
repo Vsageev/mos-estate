@@ -5,16 +5,16 @@ import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/shared/widget/button.dart';
 import 'package:mos_estate/shared/widget/submitable_text_form.dart';
 
-class ImprotHeader extends StatefulWidget {
-  const ImprotHeader({super.key, required this.flatSelected});
+class ImportHeader extends StatefulWidget {
+  const ImportHeader({super.key, required this.flatSelected});
 
   final bool flatSelected;
 
   @override
-  State<ImprotHeader> createState() => _ImprotHeaderState();
+  State<ImportHeader> createState() => _ImportHeaderState();
 }
 
-class _ImprotHeaderState extends State<ImprotHeader> {
+class _ImportHeaderState extends State<ImportHeader> {
   final controller = TextEditingController();
 
   @override

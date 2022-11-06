@@ -16,6 +16,7 @@ import 'package:mos_estate/pages/standart_calculation/standart_panel.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/shared/constants/parameters.dart';
 import 'package:mos_estate/shared/utils/get_random_string.dart';
+import 'package:mos_estate/shared/utils/random_fluctuation.dart';
 import 'package:mos_estate/shared/widget/button.dart';
 import 'package:mos_estate/shared/widget/flat_info_popup.dart';
 import 'package:mos_estate/shared/widget/navigated_page.dart';
@@ -32,28 +33,32 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
   late GoogleMapController mapController;
   bool mapActive = true;
 
-  _initMarkers(List<Analogue> analogues) async {
+  _initMarkers(List<Analogue> analogues, Standart standart) async {
     Set<Marker> tempMarkers = {};
+
+    int i = 1;
 
     for (var e in analogues) {
       tempMarkers.add(Marker(
         icon: await (() async {
-          Uint8List markerIcon = await drawAnalogue(1, 30, 30, e.selected);
+          Uint8List markerIcon = await drawAnalogue(i, 30, 30, e.selected);
           return BitmapDescriptor.fromBytes(markerIcon);
         }()),
-        position: LatLng(e.coordinates.lat, e.coordinates.lng),
+        position: LatLng(e.coordinates.lat + randomFluctuation(), e.coordinates.lng + randomFluctuation()),
         markerId: MarkerId(
           getRandomString(5),
         ),
       ));
+
+      ++i;
     }
 
     tempMarkers.add(Marker(
       icon: await (() async {
-        Uint8List markerIcon = await drawStandart(30, 30);
+        Uint8List markerIcon = await drawStandart(40, 40);
         return BitmapDescriptor.fromBytes(markerIcon);
       }()),
-      position: const LatLng(55.7707139, 37.6406965),
+      position: LatLng(standart.coordinates.lng, standart.coordinates.lat),
       markerId: MarkerId(
         getRandomString(5),
       ),
@@ -118,7 +123,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                           child: GoogleMap(
                             onMapCreated: (c) {
                               _onMapCreated(c);
-                              _initMarkers(state.analogues);
+                              _initMarkers(state.analogues, state.standart);
                             },
                             zoomGesturesEnabled: mapActive,
                             markers: _markers,
@@ -180,7 +185,7 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
                         setMapEnabled: _setMapGestureDetection,
                         updateUI: () {
                           setState(() {});
-                          _initMarkers(state.analogues);
+                          _initMarkers(state.analogues, state.standart);
                         },
                         analogues: state.analogues,
                         navigateToMarker: (d) {
@@ -223,7 +228,117 @@ class _StandartCalculationPageState extends State<StandartCalculationPage> {
         );
       }
 
-      return Container();
+      return Stack(
+        children: [
+          NavigatedPage(
+            body: Padding(
+              padding: const EdgeInsets.all(30),
+              child: Row(
+                children: [
+                  Expanded(
+                    flex: 2,
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(borderRadius: BorderRadius.circular(8)),
+                            clipBehavior: Clip.antiAlias,
+                            child: GoogleMap(
+                              onMapCreated: (c) {},
+                              zoomGesturesEnabled: mapActive,
+                              markers: _markers,
+                              initialCameraPosition: const CameraPosition(
+                                target: LatLng(55.7607139, 37.6006965),
+                                zoom: 11.0,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(height: 24),
+                        StandartPanel(
+                          price: 0,
+                          setMapEnabled: _setMapGestureDetection,
+                          standart: Standart.empty(),
+                        )
+                      ],
+                    ),
+                  ),
+                  Container(width: 30),
+                  Expanded(
+                    flex: 1,
+                    child: Column(
+                      children: [
+                        Button(
+                          border: Border.all(color: CustomColors.brightAccent, width: 2),
+                          color: Colors.white,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(
+                                Icons.calendar_view_month,
+                                color: CustomColors.brightAccent,
+                                size: 21,
+                              ),
+                              SizedBox(width: 10),
+                              Text(
+                                'Таблица поправок',
+                                style: TextStyle(
+                                  color: CustomColors.brightAccent,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 19,
+                                ),
+                              ),
+                            ],
+                          ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (d) => RatiosTablesPage(
+                                  ratios: BlocProvider.of<StandartCalculationCubit>(context).ratios,
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                        AnalogueList(
+                          setMapEnabled: _setMapGestureDetection,
+                          updateUI: () {},
+                          analogues: const [],
+                          navigateToMarker: (d) {},
+                        ),
+                        Button(
+                          padding: const EdgeInsets.all(16),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                'Расчитать пул',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 19,
+                                ),
+                              ),
+                            ],
+                          ),
+                          onTap: () {},
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Container(
+            color: Colors.black.withAlpha(100),
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ],
+      );
     });
   }
 }

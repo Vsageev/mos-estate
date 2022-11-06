@@ -81,6 +81,8 @@ class StandartResponseAnalogue {
   int price;
   int roomsCount;
   String segment;
+  String statusFinish;
+  List<String> photos;
   List<int> typeOfArea;
   List<int> typeOfBalcony;
   List<int> typeOfFloor;
@@ -100,6 +102,8 @@ class StandartResponseAnalogue {
     required this.price,
     required this.roomsCount,
     required this.segment,
+    required this.statusFinish,
+    required this.photos,
     required this.typeOfArea,
     required this.typeOfBalcony,
     required this.typeOfFloor,
@@ -122,6 +126,8 @@ class StandartResponseAnalogue {
       price: map['price']?.toInt() ?? 0,
       roomsCount: map['roomsCount']?.toInt() ?? 0,
       segment: map['segment'] ?? '',
+      statusFinish: map['statusFinish'] ?? '',
+      photos: List<String>.from(map['photos']),
       typeOfArea: List<int>.from(map['typeOfArea']),
       typeOfBalcony: List<int>.from(map['typeOfBalcony']),
       typeOfFloor: List<int>.from(map['typeOfFloor']),

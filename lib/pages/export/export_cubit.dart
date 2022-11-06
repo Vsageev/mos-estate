@@ -1,3 +1,4 @@
+import 'package:excel/excel.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mos_estate/main.dart';
 import 'package:mos_estate/pages/export/export_flat.dart';
@@ -52,5 +53,34 @@ class ExportCubit extends Cubit<ExportState> {
     }).toList();
 
     emit(ExportLoaded(standart: standartExport, flats: poolExport));
+  }
+
+  save() {
+    if (state is ExportLoaded) {
+      var excel = Excel.createExcel();
+      excel.appendRow('Sheet1', [
+        'Местоположение',
+        'Количество комнат',
+        'Сегмент',
+        'Этажность дома',
+        'Материал стен',
+        'Этаж расположения',
+        'Площадь квартиры, кв.м',
+        'Площадь кухни, кв.м',
+        'Наличие балкона/лоджии',
+        'Удаленность от станции метро, мин. пешком',
+        'Состояние',
+        'Цена за м²',
+        'Цена',
+      ]);
+
+      excel.appendRow('Sheet1', (state as ExportLoaded).standart.toRow(isStandart: true));
+
+      for (var flat in (state as ExportLoaded).flats) {
+        excel.appendRow('Sheet1', flat.toRow());
+      }
+
+      excel.save(fileName: 'рассчет.xlsx');
+    }
   }
 }

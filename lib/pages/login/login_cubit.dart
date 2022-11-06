@@ -14,9 +14,11 @@ import '../import/import_cubit.dart';
 import '../import/import_page.dart';
 
 class LoginCubit extends Cubit<LoginState> {
-  LoginCubit() : super(LoginInitial());
+  LoginCubit() : super(LoginDefault());
 
   tryLogin(String username, String password) async {
+    emit(LoginLoading());
+
     try {
       final prefs = await SharedPreferences.getInstance();
 
@@ -37,9 +39,13 @@ class LoginCubit extends Cubit<LoginState> {
           ),
         );
       } else {
+        emit(LoginDefault());
+
         showErrorNotification('Не удалось войти');
       }
     } catch (e) {
+      emit(LoginDefault());
+
       showErrorNotification('Не удалось войти');
       print(e);
     }

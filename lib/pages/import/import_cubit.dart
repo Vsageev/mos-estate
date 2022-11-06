@@ -23,7 +23,7 @@ class ImportCubit extends Cubit<ImportState> {
       final bytes = result.files.first.bytes;
       var excel = Excel.decodeBytes(bytes!);
 
-      final rows = excel.tables[excel.tables.keys.first]?.rows.sublist(2);
+      final rows = excel.tables[excel.tables.keys.first]?.rows.sublist(1);
 
       lastFlats = rows?.map((e) => InputFlat.fromRow(e)).toList();
 

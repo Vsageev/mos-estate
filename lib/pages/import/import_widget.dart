@@ -14,7 +14,7 @@ class ImportWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       child: Row(
         children: [
-          Expanded(
+          const Expanded(
             child: Center(
               child: Text(
                 'Импорт пула',
@@ -42,12 +42,12 @@ class ImportWidget extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(
+                        const Icon(
                           Icons.upload,
                           color: CustomColors.background,
                         ),
                         Container(width: 4),
-                        Text(
+                        const Text(
                           'Выбор файла',
                           style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, color: CustomColors.background),
                         ),

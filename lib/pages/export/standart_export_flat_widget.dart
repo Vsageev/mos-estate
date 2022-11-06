@@ -4,11 +4,10 @@ import 'package:mos_estate/shared/constants/colors.dart';
 import 'package:mos_estate/shared/utils/price_to_string.dart';
 import 'package:mos_estate/shared/widget/flat_info_popup.dart';
 
-class ExportFlatWidget extends StatelessWidget {
-  const ExportFlatWidget({super.key, required this.flat, required this.id});
+class StandartExportFlatWidget extends StatelessWidget {
+  const StandartExportFlatWidget({super.key, required this.flat});
 
   final ExportFlat flat;
-  final int id;
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +27,6 @@ class ExportFlatWidget extends StatelessWidget {
             child: Row(
               children: [
                 Container(width: 20),
-                Text(
-                  (id + 1).toString(),
-                  style: const TextStyle(color: CustomColors.brightAccent, fontWeight: FontWeight.w700, fontSize: 20),
-                ),
-                Container(width: 20),
                 SizedBox(
                   width: 100,
                   child: Text(
@@ -41,9 +35,10 @@ class ExportFlatWidget extends StatelessWidget {
                   ),
                 ),
                 Container(width: 5),
-                ExportFlatParameter(name: "Цена за метр", value: priceToString(flat.pricePerSqMeter)),
+                StandatExportFlatParameter(name: "Цена за метр", value: priceToString(flat.pricePerSqMeter)),
                 Container(width: 5),
-                ExportFlatParameter(name: "Цена", value: priceToString((flat.pricePerSqMeter * flat.flatArea).round())),
+                StandatExportFlatParameter(
+                    name: "Цена", value: priceToString((flat.pricePerSqMeter * flat.flatArea).round())),
                 Container(width: 20),
               ],
             ),
@@ -56,16 +51,16 @@ class ExportFlatWidget extends StatelessWidget {
               color: CustomColors.backgroundAccent,
               child: Row(
                 children: [
-                  ExportFlatParameter(name: "Количество комнат", value: flat.roomsCount.toString()),
-                  ExportFlatParameter(name: "Этаж", value: "${flat.flatFloor}/${flat.floorsInHouse}"),
-                  ExportFlatParameter(name: "Состояние", value: flat.condition, flex: 2),
+                  StandatExportFlatParameter(name: "Количество комнат", value: flat.roomsCount.toString()),
+                  StandatExportFlatParameter(name: "Этаж", value: "${flat.flatFloor}/${flat.floorsInHouse}"),
+                  StandatExportFlatParameter(name: "Состояние", value: flat.condition, flex: 2),
                   IconButton(
                       onPressed: () {
                         showDialog(
                           context: context,
                           builder: (_) => FlatInfoPopup(
                             flat: flat,
-                            name: "Квартира ${id + 1}",
+                            name: "Эталон",
                           ),
                         );
                       },
@@ -80,8 +75,8 @@ class ExportFlatWidget extends StatelessWidget {
   }
 }
 
-class ExportFlatParameter extends StatelessWidget {
-  const ExportFlatParameter({super.key, required this.name, required this.value, this.flex});
+class StandatExportFlatParameter extends StatelessWidget {
+  const StandatExportFlatParameter({super.key, required this.name, required this.value, this.flex});
 
   final String name;
   final String value;

@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
 
 class CustomTextForm extends StatelessWidget {
-  const CustomTextForm({Key? key, required this.hint, required this.controller, this.hidden = false}) : super(key: key);
+  const CustomTextForm(
+      {Key? key, required this.hint, required this.controller, this.hidden = false, this.autofillHints})
+      : super(key: key);
 
   final bool hidden;
   final String hint;
   final TextEditingController controller;
+  final Iterable<String>? autofillHints;
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +23,15 @@ class CustomTextForm extends StatelessWidget {
           Expanded(
             child: TextField(
               obscureText: hidden,
+              autofillHints: autofillHints,
               maxLines: 1,
               controller: controller,
-              style: TextStyle(fontSize: 16, color: CustomColors.text, fontWeight: FontWeight.w500),
+              style: const TextStyle(fontSize: 16, color: CustomColors.text, fontWeight: FontWeight.w500),
               decoration: InputDecoration(
                 isDense: true,
                 contentPadding: const EdgeInsets.only(left: 22.4, bottom: 18.4, top: 18.4),
                 hintText: hint,
-                hintStyle: TextStyle(
+                hintStyle: const TextStyle(
                   color: CustomColors.hint,
                 ),
                 border: InputBorder.none,

@@ -33,6 +33,23 @@ class Standart extends Flat {
             distanceFromMetro: distanceFromMetro,
             condition: condition);
 
+  factory Standart.empty() {
+    return Standart(
+      position: '',
+      roomsCount: '0',
+      segment: '',
+      floorsInHouse: 0,
+      wallsMaterial: '',
+      flatFloor: 0,
+      flatArea: 0,
+      kitchenArea: 0,
+      hasBalcony: '',
+      distanceFromMetro: 0,
+      condition: '',
+      coordinates: Location(lat: 0, lng: 0),
+    );
+  }
+
   factory Standart.fromResponseStandart(StandartResponseStandart standart) {
     return Standart(
       position: standart.address,

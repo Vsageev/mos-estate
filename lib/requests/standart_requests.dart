@@ -11,6 +11,8 @@ class StandartRequests {
   static Future<StandartResponse> getAnalogues(InputFlat flat) async {
     final body = StandartRequest.fromInput(flat).toMap();
 
+    print(json.encode(body));
+
     final response = await http.post(Uri.https(host, '/api/getCianAnalogs'), body: json.encode(body), headers: {
       "Content-Type": "application/json",
       "Authorization": "Bearer ${LoginService.instance.token}",

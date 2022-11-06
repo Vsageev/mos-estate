@@ -31,6 +31,7 @@ class Analogue {
   String hasBalcony;
   int distanceFromMetro;
   String condition;
+  List<String> imageUrls;
 
   Analogue({
     required this.ratiosCoordinates,
@@ -47,6 +48,7 @@ class Analogue {
     required this.hasBalcony,
     required this.distanceFromMetro,
     required this.condition,
+    required this.imageUrls,
   });
 
   factory Analogue.fromResponseAnalogue(StandartResponseAnalogue analogue) {
@@ -57,7 +59,7 @@ class Analogue {
         Parameter.kitchenArea: RatioCoordinates.fromArray(analogue.typeOfKitchenArea),
         Parameter.hasBalcony: RatioCoordinates.fromArray(analogue.typeOfBalcony),
         Parameter.distanceFromMetro: RatioCoordinates.fromArray(analogue.typeOfMetroTime),
-        Parameter.condition: RatioCoordinates.fromArray([1, 1]),
+        Parameter.condition: RatioCoordinates.fromArray(analogue.typeOfStatusFinish),
       },
       price: analogue.price,
       coordinates: analogue.location,
@@ -71,30 +73,10 @@ class Analogue {
       kitchenArea: double.tryParse(analogue.kitchenArea) ?? 0,
       hasBalcony: analogue.balcony,
       distanceFromMetro: analogue.metroTime,
-      condition: "Муниципальный ремонт",
+      condition: analogue.statusFinish,
+      imageUrls: analogue.photos,
     );
   }
-
-  factory Analogue.fromMap(Map<String, dynamic> map) {
-    return Analogue(
-      ratiosCoordinates: ratioCoordsfromMap(map['ratiosCoordinates']),
-      price: map['price']?.toInt() ?? 0,
-      coordinates: Location.fromMap(map['coordinates']),
-      position: map['position'] ?? '',
-      roomsCount: map['roomsCount']?.toInt() ?? 0,
-      segment: map['segment'] ?? '',
-      floorsInHouse: map['floorsInHouse']?.toInt() ?? 0,
-      wallsMaterial: map['wallsMaterial'] ?? '',
-      flatFloor: map['flatFloor']?.toInt() ?? 0,
-      flatArea: map['flatArea']?.toInt() ?? 0,
-      kitchenArea: map['kitchenArea']?.toInt() ?? 0,
-      hasBalcony: map['hasBalcony'] ?? false,
-      distanceFromMetro: map['distanceFromMetro']?.toDouble() ?? 0.0,
-      condition: map['condition'] ?? '',
-    );
-  }
-
-  factory Analogue.fromJson(String source) => Analogue.fromMap(json.decode(source));
 }
 
 class Location {
