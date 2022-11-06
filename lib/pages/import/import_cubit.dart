@@ -53,7 +53,7 @@ class ImportCubit extends Cubit<ImportState> {
     if (state is ImportLoaded) {
       if ((state as ImportLoaded).selectedId != null) {
         BlocProvider.of<PoolCubit>(navigatorKey.currentContext!)
-            .submitPool((state as ImportLoaded).flats, (state as ImportLoaded).selectedId!);
+            .submitPool(lastFlats ?? [], (state as ImportLoaded).selectedId!);
         Navigator.push(
           navigatorKey.currentContext!,
           MaterialPageRoute(
