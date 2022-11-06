@@ -15,7 +15,10 @@ class ImportCubit extends Cubit<ImportState> {
   List<InputFlat>? lastFlats;
 
   pickFile() async {
-    FilePickerResult? result = await FilePicker.platform.pickFiles();
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['xlsx'],
+    );
 
     if (result != null) {
       emit(ImportWaiting());
