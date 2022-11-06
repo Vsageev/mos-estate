@@ -42,7 +42,7 @@ class _ImportHeaderState extends State<ImportHeader> {
             Padding(
               padding: const EdgeInsets.only(left: 10),
               child: Button(
-                padding: const EdgeInsets.all(8),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 30),
                 onTap: BlocProvider.of<ImportCubit>(context).calculate,
                 color: CustomColors.brightAccent,
                 child: const Text(

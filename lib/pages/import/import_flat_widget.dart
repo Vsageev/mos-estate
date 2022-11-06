@@ -66,6 +66,7 @@ class ImportFlatWidget extends StatelessWidget {
                     flex: 2,
                   ),
                   IconButton(
+                      tooltip: "Посмотреть все параметры",
                       onPressed: () {
                         showDialog(
                           context: context,

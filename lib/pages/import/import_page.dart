@@ -98,7 +98,7 @@ class ImportPage extends StatelessWidget {
                       child: Center(
                         child: Text(
                           "Импортируйте данные",
-                          style: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.w700, fontSize: 30),
+                          style: TextStyle(color: Colors.grey[400], fontWeight: FontWeight.w500, fontSize: 30),
                         ),
                       ),
                     ),

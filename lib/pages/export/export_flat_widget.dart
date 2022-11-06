@@ -60,6 +60,7 @@ class ExportFlatWidget extends StatelessWidget {
                   ExportFlatParameter(name: "Этаж", value: "${flat.flatFloor}/${flat.floorsInHouse}"),
                   ExportFlatParameter(name: "Состояние", value: flat.condition, flex: 2),
                   IconButton(
+                      tooltip: "Посмотреть все параметры",
                       onPressed: () {
                         showDialog(
                           context: context,
