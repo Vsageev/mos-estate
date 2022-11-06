@@ -1,5 +1,7 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue.dart';
+import 'package:mos_estate/pages/standart_calculation/analogue_popup/analogue_picture.dart';
 import 'package:mos_estate/pages/standart_calculation/analogue_popup/feature_ratio.dart';
 import 'package:mos_estate/pages/standart_calculation/ratios.dart';
 import 'package:mos_estate/shared/constants/colors.dart';
@@ -85,6 +87,10 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
   final TextEditingController metroDistanceRatio = TextEditingController();
   final TextEditingController conditionRatio = TextEditingController();
   final TextEditingController bargainRatio = TextEditingController();
+
+  final carouselController = CarouselController();
+
+  int imageId = 0;
 
   @override
   void initState() {
@@ -220,7 +226,41 @@ class _AnalogueRatiosPopupState extends State<AnalogueRatiosPopup> {
                                 'Аналог ${widget.id}',
                                 style: const TextStyle(fontWeight: FontWeight.w700, fontSize: 28),
                               ),
-                              Container(height: 30),
+                              Container(height: 20),
+                              Container(
+                                padding: const EdgeInsets.only(top: 20, left: 10, right: 10),
+                                color: Colors.black,
+                                child: Column(
+                                  children: [
+                                    CarouselSlider(
+                                      items: widget.analogue.imageUrls.map((e) => AnaloguePictue(url: e)).toList(),
+                                      carouselController: carouselController,
+                                      options: CarouselOptions(
+                                          enlargeCenterPage: true,
+                                          aspectRatio: 2.0,
+                                          onPageChanged: (index, reason) {
+                                            setState(() {
+                                              imageId = index;
+                                            });
+                                          }),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      children: List.generate(
+                                        widget.analogue.imageUrls.length,
+                                        (index) => Container(
+                                            width: 10.0,
+                                            height: 10.0,
+                                            margin: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 4.0),
+                                            decoration: BoxDecoration(
+                                                shape: BoxShape.circle,
+                                                color: Colors.white.withOpacity(imageId == index ? 1.0 : 0.5))),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              Container(height: 15),
                               Text(
                                 widget.analogue.position,
                                 style: const TextStyle(
