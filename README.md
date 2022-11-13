@@ -8,7 +8,7 @@ https://leaders2022.innoagency.ru/task6.html
 
 Сайт (хостинг бесплатный, может грузиться долго): https://flasklct.herokuapp.com/#/ (тестовый аккаунт login:Nikita password:12345asdfg)
 
-Видео с демонстрацией работы: https://drive.google.com/file/d/18JxelX1ajCAsr97MbvEyt_rj0dQ8Ugya/view?usp=share_link
+Видео с демонстрацией работы: https://drive.google.com/file/d/1WQ5-mOi9-ozV1K591ztIiiyLqelJYc2d/view
 
 ## Формат входных данных
 
